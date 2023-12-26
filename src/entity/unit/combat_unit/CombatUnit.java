@@ -126,7 +126,19 @@ public abstract class CombatUnit extends Unit implements ICombatUnit{
 
     @Override
     public int[][] getDamageRange() {
-        return damageRange;
+        // return a copied damageRange to avoid client code mutating the damageRange
+        return copy2DArray(damageRange);
+    }
+
+    private int[][] copy2DArray(int[][] original) {
+        if (original == null) {
+            return null;
+        }
+        int[][] copy = new int[original.length][];
+        for (int i = 0; i < original.length; i++) {
+            copy[i] = original[i].clone();
+        }
+        return copy;
     }
 
     @Override
@@ -149,8 +161,12 @@ public abstract class CombatUnit extends Unit implements ICombatUnit{
         return attackStrategy;
     }
 
+    @Override
     public int getCombatValue() {
-        return (int) Math.ceil(price + hp * (attack + atkBuff + defense + defBuff));
+        double adjustedHp = Math.max(hp, 1);
+        double normalizedHp  = adjustedHp / maxHp;
+        double hpEffect = 0.7 * Math.sqrt(normalizedHp) + 0.3 * Math.pow(normalizedHp, 3);
+        return (int) hpEffect * price;
     }
 
     @Override
