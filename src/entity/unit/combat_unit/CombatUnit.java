@@ -66,7 +66,10 @@ public abstract class CombatUnit extends Unit implements ICombatUnit{
     @Override
     public void setHp(float hp) {
         if (hp < 0) {
-            throw new IllegalArgumentException("Input value must be greater than 0");
+            throw new IllegalArgumentException("hp must be greater than 0");
+        }
+        else if(hp > maxHp) {
+            throw new IllegalArgumentException("hp could not exceed the maxHp");
         }
         else {this.hp = hp;}
     }
@@ -114,7 +117,10 @@ public abstract class CombatUnit extends Unit implements ICombatUnit{
     @Override
     public void setOperationNum(int operationNum) {
         if (operationNum < 0) {
-            throw new IllegalArgumentException("Input value must be greater than 0");
+            throw new IllegalArgumentException("operationNum must be greater than 0");
+        }
+        else if (operationNum > maxOperationNum) {
+            throw new IllegalArgumentException("operationNum must be smaller than maxOperationNum");
         }
         else {this.operationNum = operationNum;}
     }
@@ -163,7 +169,7 @@ public abstract class CombatUnit extends Unit implements ICombatUnit{
 
     @Override
     public int getCombatValue() {
-        double adjustedHp = Math.max(hp, 1);
+        double adjustedHp = Math.max(hp, 0);
         double normalizedHp  = adjustedHp / maxHp;
         double hpEffect = 0.7 * Math.sqrt(normalizedHp) + 0.3 * Math.pow(normalizedHp, 3);
         return (int) hpEffect * price;
