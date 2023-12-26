@@ -4,7 +4,7 @@ import entity.Placeable;
 
 import javax.swing.*;
 
-public class Unit implements IUnit, Placeable {
+public abstract class Unit implements IUnit, Placeable {
 
     private int x;
 
@@ -12,27 +12,29 @@ public class Unit implements IUnit, Placeable {
 
     private final String name = this.getClass().getSimpleName();
 
-    private ImageIcon icon;
+    private final String iconPath;
 
-    private ImageIcon flippedIcon;
+    private final String flippedIconPath;
 
     private final ImageIcon displayedIcon;
 
     private final boolean left;
 
-    public Unit(int x, int y, boolean Left) {
+    public Unit(int x, int y, String iconPath, String flippedIconPath, boolean Left) {
         this.x = x;
         this.y = y;
+        this.iconPath = iconPath;
+        this.flippedIconPath = flippedIconPath;
         this.left = Left;
         //If the unit belongs to the LEFT player,
         // then the displayed icon faces to the right.(icon)
         if (this.left) {
-            displayedIcon = icon;
+            displayedIcon = new ImageIcon(iconPath);
         }
         //If the unit belongs to the RIGHT player,
         // then the displayed icon faces to the left.(flippedIcon)
         else {
-            displayedIcon = flippedIcon;
+            displayedIcon = new ImageIcon(flippedIconPath);
         }
     }
 
@@ -49,7 +51,8 @@ public class Unit implements IUnit, Placeable {
 
     @Override
     public void setLocation(int x, int y) {
-
+        this.x = x;
+        this.y = y;
     }
 
     @Override
@@ -61,4 +64,5 @@ public class Unit implements IUnit, Placeable {
     public boolean isLeft() {
         return left;
     }
+
 }
