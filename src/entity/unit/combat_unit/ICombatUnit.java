@@ -1,6 +1,7 @@
 package entity.unit.combat_unit;
 
 import entity.attack_strategy.AttackStrategy;
+import entity.unit.IUnit;
 
 public interface ICombatUnit {
     float getMaxHp();
@@ -38,4 +39,6 @@ public interface ICombatUnit {
     int getHeight();
 
     AttackStrategy getAttackStrategy();
+
+    void reset();
 }

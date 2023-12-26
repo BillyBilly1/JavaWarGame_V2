@@ -33,6 +33,8 @@ public abstract class CombatUnit extends Unit implements ICombatUnit{
 
     protected final AttackStrategy attackStrategy;
 
+    protected int combatValue;
+
     public CombatUnit(int x, int y, boolean left, float maxHp, float attack,
                       float defense, int maxOperationNum, int attackRange,
                       int[][] damageRange, int price, int foodConsumption,
@@ -63,7 +65,10 @@ public abstract class CombatUnit extends Unit implements ICombatUnit{
 
     @Override
     public void setHp(float hp) {
-        this.hp = hp;
+        if (hp < 0) {
+            throw new IllegalArgumentException("Input value must be greater than 0");
+        }
+        else {this.hp = hp;}
     }
 
     @Override
@@ -108,7 +113,10 @@ public abstract class CombatUnit extends Unit implements ICombatUnit{
 
     @Override
     public void setOperationNum(int operationNum) {
-        this.operationNum = operationNum;
+        if (operationNum < 0) {
+            throw new IllegalArgumentException("Input value must be greater than 0");
+        }
+        else {this.operationNum = operationNum;}
     }
 
     @Override
@@ -139,6 +147,17 @@ public abstract class CombatUnit extends Unit implements ICombatUnit{
     @Override
     public AttackStrategy getAttackStrategy() {
         return attackStrategy;
+    }
+
+    public int getCombatValue() {
+        return (int) Math.ceil(price + hp * (attack + atkBuff + defense + defBuff));
+    }
+
+    @Override
+    public void reset() {
+        setOperationNum(0);
+        setAtkBuff(0);
+        setDefBuff(0);
     }
 }
 

@@ -20,12 +20,12 @@ public abstract class Unit implements IUnit, Placeable {
 
     private final boolean left;
 
-    public Unit(int x, int y, String iconPath, String flippedIconPath, boolean Left) {
+    public Unit(int x, int y, String iconPath, String flippedIconPath, boolean left) {
         this.x = x;
         this.y = y;
         this.iconPath = iconPath;
         this.flippedIconPath = flippedIconPath;
-        this.left = Left;
+        this.left = left;
         //If the unit belongs to the LEFT player,
         // then the displayed icon faces to the right.(icon)
         if (this.left) {
