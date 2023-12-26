@@ -6,26 +6,42 @@ import javax.swing.*;
 
 public abstract class Unit implements IUnit, Placeable {
 
-    private int x;
+    protected int x;
 
-    private int y;
+    protected int y;
 
-    private final String name = this.getClass().getSimpleName();
 
-    private final String iconPath;
+    protected final String name = this.getClass().getSimpleName();
 
-    private final String flippedIconPath;
+    protected final String iconPath;
 
-    private final ImageIcon displayedIcon;
+    protected final String flippedIconPath;
 
-    private final boolean left;
+    protected final ImageIcon displayedIcon;
 
-    public Unit(int x, int y, String iconPath, String flippedIconPath, boolean left) {
+    protected final boolean left;
+
+    protected final float maxHp;
+
+    protected float hp;
+
+    protected final float defense;
+
+    protected float defBuff = 0.0f;
+
+    protected final int price;
+
+    public Unit(int x, int y, boolean left, float maxHp, float defense,
+                int price, String iconPath, String flippedIconPath) {
         this.x = x;
         this.y = y;
+        this.left = left;
+        this.maxHp = maxHp;
+        this.hp = maxHp;
+        this.defense = defense;
+        this.price = price;
         this.iconPath = iconPath;
         this.flippedIconPath = flippedIconPath;
-        this.left = left;
         //If the unit belongs to the LEFT player,
         // then the displayed icon faces to the right.(icon)
         if (this.left) {

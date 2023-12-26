@@ -40,7 +40,5 @@ public interface ICombatUnit {
 
     AttackStrategy getAttackStrategy();
 
-    int getCombatValue();
-
     void reset();
 }

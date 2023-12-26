@@ -1,21 +1,16 @@
 package entity.unit.combat_unit;
 
+import entity.CanAttack;
 import entity.attack_strategy.AttackStrategy;
 import entity.unit.Unit;
 
-public abstract class CombatUnit extends Unit implements ICombatUnit{
-
-    protected final float maxHp;
+public abstract class CombatUnit extends Unit implements ICombatUnit, CanAttack {
 
     protected float hp;
 
     protected final float attack;
 
-    protected final float defense;
-
     protected float atkBuff = 0.0f;
-
-    protected float defBuff = 0.0f;
 
     protected final int maxOperationNum;
 
@@ -25,30 +20,22 @@ public abstract class CombatUnit extends Unit implements ICombatUnit{
 
     protected final int[][] damageRange;
 
-    protected final int price;
-
     protected final int foodConsumption;
 
     protected final int height = 1;
 
     protected final AttackStrategy attackStrategy;
 
-    protected int combatValue;
-
     public CombatUnit(int x, int y, boolean left, float maxHp, float attack,
                       float defense, int maxOperationNum, int attackRange,
                       int[][] damageRange, int price, int foodConsumption,
                       String iconPath, String flippedIconPath, AttackStrategy attackStrategy) {
-        super(x, y, iconPath, flippedIconPath, left);
-        this.maxHp = maxHp;
-        this.hp = maxHp;
+        super(x, y, left, maxHp, defense, price, iconPath, flippedIconPath);
         this.attack = attack;
-        this.defense = defense;
         this.maxOperationNum = maxOperationNum;
         this.operationNum = maxOperationNum;
         this.attackRange = attackRange;
         this.damageRange = damageRange;
-        this.price = price;
         this.foodConsumption = foodConsumption;
         this.attackStrategy = attackStrategy;
     }
@@ -168,7 +155,7 @@ public abstract class CombatUnit extends Unit implements ICombatUnit{
     }
 
     @Override
-    public int getCombatValue() {
+    public int getStrength() {
         double adjustedHp = Math.max(hp, 0);
         double normalizedHp  = adjustedHp / maxHp;
         double hpEffect = 0.7 * Math.sqrt(normalizedHp) + 0.3 * Math.pow(normalizedHp, 3);

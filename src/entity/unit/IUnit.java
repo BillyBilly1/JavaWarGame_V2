@@ -14,4 +14,6 @@ public interface IUnit {
 
     boolean isLeft();
 
+    int getStrength();
+
 }
