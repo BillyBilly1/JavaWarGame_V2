@@ -3,24 +3,13 @@ package entity.unit.combat_unit;
 import entity.attack_strategy.AttackStrategy;
 import entity.unit.IUnit;
 
-public interface ICombatUnit {
-    float getMaxHp();
-
-    float getHp();
-
-    void setHp(float hp);
+public interface ICombatUnit extends IUnit {
 
     float getAttack();
-
-    float getDefense();
 
     float getAtkBuff();
 
     void setAtkBuff(float atkBuff);
-
-    float getDefBuff();
-
-    void setDefBuff(float defBuff);
 
     int getMaxOperationNum();
 
@@ -32,11 +21,7 @@ public interface ICombatUnit {
 
     int[][] getDamageRange();
 
-    int getPrice();
-
     int getFoodConsumption();
-
-    int getHeight();
 
     AttackStrategy getAttackStrategy();
 

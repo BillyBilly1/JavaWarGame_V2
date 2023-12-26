@@ -6,8 +6,6 @@ import entity.unit.Unit;
 
 public abstract class CombatUnit extends Unit implements ICombatUnit, CanAttack {
 
-    protected float hp;
-
     protected final float attack;
 
     protected float atkBuff = 0.0f;
@@ -22,7 +20,9 @@ public abstract class CombatUnit extends Unit implements ICombatUnit, CanAttack 
 
     protected final int foodConsumption;
 
-    protected final int height = 1;
+    protected static final int defaultHeight = 1;
+
+    protected static final float defaultKillRewardMultiplier = 0.5f;
 
     protected final AttackStrategy attackStrategy;
 
@@ -30,7 +30,8 @@ public abstract class CombatUnit extends Unit implements ICombatUnit, CanAttack 
                       float defense, int maxOperationNum, int attackRange,
                       int[][] damageRange, int price, int foodConsumption,
                       String iconPath, String flippedIconPath, AttackStrategy attackStrategy) {
-        super(x, y, left, maxHp, defense, price, iconPath, flippedIconPath);
+        super(x, y, left, maxHp, defense, price, defaultHeight,
+                defaultKillRewardMultiplier, iconPath, flippedIconPath);
         this.attack = attack;
         this.maxOperationNum = maxOperationNum;
         this.operationNum = maxOperationNum;
@@ -41,34 +42,8 @@ public abstract class CombatUnit extends Unit implements ICombatUnit, CanAttack 
     }
 
     @Override
-    public float getMaxHp() {
-        return maxHp;
-    }
-
-    @Override
-    public float getHp() {
-        return hp;
-    }
-
-    @Override
-    public void setHp(float hp) {
-        if (hp < 0) {
-            throw new IllegalArgumentException("hp must be greater than 0");
-        }
-        else if(hp > maxHp) {
-            throw new IllegalArgumentException("hp could not exceed the maxHp");
-        }
-        else {this.hp = hp;}
-    }
-
-    @Override
     public float getAttack() {
         return attack;
-    }
-
-    @Override
-    public float getDefense() {
-        return defense;
     }
 
     @Override
@@ -79,16 +54,6 @@ public abstract class CombatUnit extends Unit implements ICombatUnit, CanAttack 
     @Override
     public void setAtkBuff(float atkBuff) {
         this.atkBuff = atkBuff;
-    }
-
-    @Override
-    public float getDefBuff() {
-        return defBuff;
-    }
-
-    @Override
-    public void setDefBuff(float defBuff) {
-        this.defBuff = defBuff;
     }
 
     @Override
@@ -134,19 +99,10 @@ public abstract class CombatUnit extends Unit implements ICombatUnit, CanAttack 
         return copy;
     }
 
-    @Override
-    public int getPrice() {
-        return price;
-    }
 
     @Override
     public int getFoodConsumption() {
         return foodConsumption;
-    }
-
-    @Override
-    public int getHeight() {
-        return height;
     }
 
     @Override

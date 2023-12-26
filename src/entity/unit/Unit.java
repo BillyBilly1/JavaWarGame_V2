@@ -10,7 +10,6 @@ public abstract class Unit implements IUnit, Placeable {
 
     protected int y;
 
-
     protected final String name = this.getClass().getSimpleName();
 
     protected final String iconPath;
@@ -31,8 +30,12 @@ public abstract class Unit implements IUnit, Placeable {
 
     protected final int price;
 
+    protected final int height;
+
+    protected final float killRewardMultiplier;
+
     public Unit(int x, int y, boolean left, float maxHp, float defense,
-                int price, String iconPath, String flippedIconPath) {
+                int price, int height, float killRewardMultiplier, String iconPath, String flippedIconPath) {
         this.x = x;
         this.y = y;
         this.left = left;
@@ -40,6 +43,8 @@ public abstract class Unit implements IUnit, Placeable {
         this.hp = maxHp;
         this.defense = defense;
         this.price = price;
+        this.height = height;
+        this.killRewardMultiplier = killRewardMultiplier;
         this.iconPath = iconPath;
         this.flippedIconPath = flippedIconPath;
         //If the unit belongs to the LEFT player,
@@ -54,10 +59,14 @@ public abstract class Unit implements IUnit, Placeable {
         }
     }
 
-
     @Override
     public int getX() {
         return x;
+    }
+
+    @Override
+    public void setX(int x) {
+        this.x = x;
     }
 
     @Override
@@ -66,9 +75,29 @@ public abstract class Unit implements IUnit, Placeable {
     }
 
     @Override
-    public void setLocation(int x, int y) {
-        this.x = x;
+    public void setY(int y) {
         this.y = y;
+    }
+
+    @Override
+    public void setLocation(int x, int y) {
+        setX(x);
+        setY(y);
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getIconPath() {
+        return iconPath;
+    }
+
+    @Override
+    public String getFlippedIconPath() {
+        return flippedIconPath;
     }
 
     @Override
@@ -81,4 +110,52 @@ public abstract class Unit implements IUnit, Placeable {
         return left;
     }
 
+    @Override
+    public float getMaxHp() {
+        return maxHp;
+    }
+
+    @Override
+    public float getHp() {
+        return hp;
+    }
+
+    @Override
+    public void setHp(float hp) {
+        if (hp < 0) {
+            throw new IllegalArgumentException("hp must be greater than 0");
+        }
+        else if(hp > maxHp) {
+            throw new IllegalArgumentException("hp could not exceed the maxHp");
+        }
+        else {this.hp = hp;}
+    }
+
+    @Override
+    public float getDefense() {
+        return defense;
+    }
+
+    @Override
+    public float getDefBuff() {
+        return defBuff;
+    }
+
+    @Override
+    public void setDefBuff(float defBuff) {
+        this.defBuff = defBuff;
+    }
+
+    @Override
+    public int getPrice() {
+        return price;
+    }
+
+    @Override
+    public int getHeight() {return height;}
+
+    @Override
+    public float getKillRewardMultiplier() {
+        return killRewardMultiplier;
+    }
 }

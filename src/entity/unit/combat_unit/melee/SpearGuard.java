@@ -22,9 +22,9 @@ public class SpearGuard extends CombatUnit {
 
     private static final int defaultFoodConsumption = 9;
 
-    private static final String iconPath = "src/icon/SpearGuard.png";
+    private static final String iconPath = "src/icon/original/SpearGuard.PNG";
 
-    private static final String flippedIconPath = "src/icon/FlippedSpearGuard.png";
+    private static final String flippedIconPath = "src/icon/flipped/FlippedSpearGuard.PNG";
 
     private static final AttackStrategy attackStrategy = new MeleeAttackStrategy();
 

@@ -22,9 +22,9 @@ public class Archer extends CombatUnit {
 
     private static final int defaultFoodConsumption = 10;
 
-    private static final String iconPath = "src/icon/Archer.png";
+    private static final String iconPath = "src/icon/original/Archer.PNG";
 
-    private static final String flippedIconPath = "src/icon/FlippedArcher.png";
+    private static final String flippedIconPath = "src/icon/flipped/FlippedArcher.PNG";
 
     private static final AttackStrategy attackStrategy = new NormalRangedAttackStrategy();
 

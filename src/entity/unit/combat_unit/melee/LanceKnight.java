@@ -22,9 +22,9 @@ public class LanceKnight extends CombatUnit {
 
     private static final int defaultFoodConsumption = 32;
 
-    private static final String iconPath = "src/icon/LanceKnight.png";
+    private static final String iconPath = "src/icon/original/LanceKnight.PNG";
 
-    private static final String flippedIconPath = "src/icon/FlippedLanceKnight.png";
+    private static final String flippedIconPath = "src/icon/flipped/FlippedLanceKnight.png";
 
     private static final AttackStrategy attackStrategy = new MeleeAttackStrategy();
 
