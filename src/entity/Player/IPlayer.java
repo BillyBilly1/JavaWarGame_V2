@@ -40,9 +40,17 @@ public interface IPlayer {
 
     int getOverallStrengthRating();
 
+    int getStarvationDuration();
+
+    void setStarvationDuration(int starvationDuration);
+
     int getTotalEnemyStrengthDefeated();
 
     void setTotalEnemyStrengthDefeated(int totalEnemyStrengthDefeated);
 
     int getFrontLinePositionX(int boardWidth);
+
+    int getTotalOperationNum();
+
+    int getTotalFoodConsumption();
 }

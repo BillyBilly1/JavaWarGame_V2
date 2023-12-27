@@ -1,5 +1,6 @@
 package entity.Player;
 
+import entity.CanAttack;
 import entity.item.Item;
 import entity.unit.building.IBuilding;
 import entity.unit.combat_unit.CombatUnit;
@@ -22,6 +23,8 @@ public class Player implements IPlayer{
     private int money;
 
     private int foodAmount;
+
+    private int starvationDuration = 0;
 
     private int totalEnemyStrengthDefeated = 0;
 
@@ -123,7 +126,18 @@ public class Player implements IPlayer{
         for (IBuilding building : buildingList) {
             overallStrengthRating += building.getStrength();
         }
+        overallStrengthRating += (int) (money + 0.5 * foodAmount);
         return overallStrengthRating;
+    }
+
+    @Override
+    public int getStarvationDuration() {
+        return starvationDuration;
+    }
+
+    @Override
+    public void setStarvationDuration(int starvationDuration) {
+        this.starvationDuration = starvationDuration;
     }
 
     @Override
@@ -161,5 +175,35 @@ public class Player implements IPlayer{
         }
         return left ? Math.min(Math.max(frontLinePositionX, oneFifthLength), fourFifthsLength)
                 : Math.max(Math.min(frontLinePositionX, fourFifthsLength), oneFifthLength);
+    }
+
+    @Override
+    public int getTotalOperationNum() {
+        int totalOperationNum = 0;
+        for (ICombatUnit combatUnit : combatUnitList) {
+            totalOperationNum += combatUnit.getOperationNum();
+        }
+        for (IBuilding building : buildingList) {
+            if (building instanceof CanAttack) {
+                totalOperationNum += ((CanAttack) building).getOperationNum();
+            }
+        }
+        return totalOperationNum;
+    }
+
+    @Override
+    public int getTotalFoodConsumption() {
+        int totalFoodConsumption = 0;
+        for (ICombatUnit combatUnit : combatUnitList) {
+            totalFoodConsumption += combatUnit.getFoodConsumption();
+        }
+        return totalFoodConsumption;
+    }
+
+    public boolean isLost() {
+        if (combatUnitList.isEmpty()) {
+            return true;
+        }
+        else {return false;}
     }
 }

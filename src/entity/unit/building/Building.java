@@ -24,6 +24,6 @@ public abstract class Building extends Unit implements IBuilding{
         double adjustedHp = Math.max(hp, 0);
         double normalizedHp  = adjustedHp / maxHp;
         double hpEffect = Math.sqrt(normalizedHp);
-        return (int) (0.5 * hpEffect * price);
+        return (int) (0.6 * hpEffect * price);
     }
 }
