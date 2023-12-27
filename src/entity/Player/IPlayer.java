@@ -44,5 +44,5 @@ public interface IPlayer {
 
     void setTotalEnemyStrengthDefeated(int totalEnemyStrengthDefeated);
 
-    int getFrontLinePositionX(int boardLength);
+    int getFrontLinePositionX(int boardWidth);
 }

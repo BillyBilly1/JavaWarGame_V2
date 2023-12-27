@@ -138,18 +138,16 @@ public class Player implements IPlayer{
 
     /**
      * Calculates the front line position on the game board.
-     * The front line is positioned between 1/5 and 4/5 of the board's length,
-     * taking into account the positions of combat units.
-     * For the left player, it considers the rightmost combat unit, allowing for 5 grid spaces behind them.
-     * For the right player, it considers the leftmost combat unit, allowing for 5 grid spaces behind them.
+     * The front line is positioned between 1/5 and 4/5 of the board's length for both players,
+     * taking account of 5 grids behind the most front combatUnit
      *
-     * @param boardLength The length of the game board.
+     * @param boardWidth The length of the game board.
      * @return The calculated front line position.
      */
     @Override
-    public int getFrontLinePositionX(int boardLength) {
-        int oneFifthLength = boardLength / 5;
-        int fourFifthsLength = boardLength - oneFifthLength;
+    public int getFrontLinePositionX(int boardWidth) {
+        int oneFifthLength = boardWidth / 5;
+        int fourFifthsLength = boardWidth - oneFifthLength;
         int frontLinePositionX = 0;
         if (left) {
             for (ICombatUnit combatUnit : combatUnitList) {
