@@ -7,7 +7,7 @@ public abstract class Building extends Unit {
     protected final int maintenanceFee;
 
     public Building(int x, int y,  boolean left, float maxHp, float defense,
-                    int Price, int maintenanceFee, int height, int killRewardMultiplier,
+                    int Price, int maintenanceFee, int height, float killRewardMultiplier,
                     String iconPath, String flippedIconPath) {
         super(x, y, left, maxHp, defense, Price, height,
                 killRewardMultiplier, iconPath, flippedIconPath);

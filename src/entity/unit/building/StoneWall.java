@@ -5,23 +5,26 @@ import entity.attack_strategy.NormalRangedAttackStrategy;
 
 public class StoneWall extends Building{
 
-    private static final float defaultMaxHp = 14.0f;
+    private static final float defaultMaxHp = 25.0f;
 
-    private static final float defaultDefense = 0.0f;
+    private static final float defaultDefense = 1.0f;
 
-    private static final int defaultPrice = 164;
+    private static final int defaultPrice = 160;
 
     private static final int defaultMaintenanceFee = 10;
 
-    private static final String iconPath = "src/icon/Archer.png";
+    private static final int defaultHeight = 2;
 
-    private static final String flippedIconPath = "src/icon/FlippedArcher.png";
+    private static final float defaultKillRewardMultiplier = 0.4f;
 
-    private static final AttackStrategy attackStrategy = new NormalRangedAttackStrategy();
+    private static final String iconPath = "src/icon/original/StoneWall.PNG";
+
+    private static final String flippedIconPath = "src/icon/flipped/FlippedStoneWall.PNG";
 
 
-
-    public StoneWall(int x, int y, boolean left, float maxHp, float defense, int Price, int maintenanceFee, int height, int killRewardMultiplier, String iconPath, String flippedIconPath) {
-        super(x, y, left, maxHp, defense, Price, maintenanceFee, height, killRewardMultiplier, iconPath, flippedIconPath);
+    public StoneWall(int x, int y, boolean left){
+        super(x, y, left, defaultMaxHp, defaultDefense, defaultPrice,
+                defaultMaintenanceFee, defaultHeight, defaultKillRewardMultiplier,
+                iconPath, flippedIconPath);
     }
 }
