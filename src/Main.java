@@ -1,7 +1,12 @@
+// Copyright (c) 2023 Yida Li (GitHub: BillyBilly1)
+// All rights reserved.
+// This code may not be reproduced, modified, distributed,
+// or used in any manner except in accordance with the terms
+// specified in a written agreement.
+
 import domain.entity.unit.IUnit;
 import domain.entity.unit.IUnitFactory;
 import domain.entity.unit.UnitFactory;
-import domain.entity.unit.combat_unit.melee.SpearGuard;
 import domain.service.id.SingletonIntegerIDGenerator;
 
 import javax.swing.*;

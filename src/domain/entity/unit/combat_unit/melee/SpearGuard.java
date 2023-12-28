@@ -1,5 +1,4 @@
 package domain.entity.unit.combat_unit.melee;
-
 import domain.attack_strategy.AttackStrategy;
 import domain.attack_strategy.MeleeAttackStrategy;
 import domain.entity.unit.combat_unit.CombatUnit;
