@@ -26,11 +26,11 @@ public abstract class CombatUnit extends Unit implements ICombatUnit, CanAttack 
 
     protected final AttackStrategy attackStrategy;
 
-    public CombatUnit(int x, int y, boolean left, float maxHp, float attack,
+    public CombatUnit(int x, int y, boolean left, String id, float maxHp, float attack,
                       float defense, int maxOperationNum, int attackRange,
                       int[][] damageRange, int price, int foodConsumption,
                       String iconPath, String flippedIconPath, AttackStrategy attackStrategy) {
-        super(x, y, left, maxHp, defense, price, defaultHeight,
+        super(x, y, left, id,  maxHp, defense, price, defaultHeight,
                 defaultKillRewardMultiplier, iconPath, flippedIconPath);
         this.attack = attack;
         this.maxOperationNum = maxOperationNum;

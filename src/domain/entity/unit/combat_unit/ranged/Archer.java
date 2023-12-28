@@ -28,8 +28,8 @@ public class Archer extends CombatUnit {
 
     private static final AttackStrategy attackStrategy = new NormalRangedAttackStrategy();
 
-    public Archer(int x, int y, boolean Left){
-        super(x, y, Left, defaultMaxHp, defaultAttack, defaultDefense,
+    public Archer(int x, int y, boolean Left, String id){
+        super(x, y, Left, id, defaultMaxHp, defaultAttack, defaultDefense,
                 defaultMaxOperationNum, defaultAttackRange, defaultDamageRange,
                 defaultPrice, defaultFoodConsumption, iconPath, flippedIconPath, attackStrategy);
     }

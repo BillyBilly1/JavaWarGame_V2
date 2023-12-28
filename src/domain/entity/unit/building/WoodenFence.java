@@ -19,8 +19,8 @@ public class WoodenFence extends Building{
     private static final String flippedIconPath = "src/icon/flipped/FlippedWoodenFence.PNG";
 
 
-    public WoodenFence(int x, int y, boolean left){
-        super(x, y, left, defaultMaxHp, defaultDefense, defaultPrice,
+    public WoodenFence(int x, int y, boolean left, String id){
+        super(x, y, left, id, defaultMaxHp, defaultDefense, defaultPrice,
                 defaultMaintenanceFee, defaultHeight, defaultKillRewardMultiplier,
                 iconPath, flippedIconPath);
     }

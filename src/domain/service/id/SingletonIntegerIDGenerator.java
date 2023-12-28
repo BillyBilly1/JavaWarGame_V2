@@ -20,7 +20,7 @@ public class SingletonIntegerIDGenerator implements SingletonIDGenerator {
 
     public synchronized String getID() {
         id++;
-        return String.valueOf(id);
+        return "ID" + String.valueOf(id);
     }
 
 }

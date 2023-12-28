@@ -28,8 +28,8 @@ public class SpearGuard extends CombatUnit {
 
     private static final AttackStrategy attackStrategy = new MeleeAttackStrategy();
 
-    public SpearGuard(int x, int y, boolean Left){
-        super(x, y, Left, defaultMaxHp, defaultAttack, defaultDefense,
+    public SpearGuard(int x, int y, boolean Left, String id){
+        super(x, y, Left, id, defaultMaxHp, defaultAttack, defaultDefense,
                 defaultMaxOperationNum, defaultAttackRange, defaultDamageRange,
                 defaultPrice, defaultFoodConsumption, iconPath, flippedIconPath, attackStrategy);
     }

@@ -2,6 +2,7 @@ package domain.entity.unit;
 
 import domain.entity.Placeable;
 import domain.service.id.SingletonIDGenerator;
+import domain.service.id.SingletonIntegerIDGenerator;
 
 import javax.swing.*;
 
@@ -12,6 +13,8 @@ public abstract class Unit implements IUnit, Placeable {
     protected int y;
 
     protected final String name = this.getClass().getSimpleName();
+
+    protected final String id;
 
     protected final String iconPath;
 
@@ -35,11 +38,12 @@ public abstract class Unit implements IUnit, Placeable {
 
     protected final float killRewardMultiplier;
 
-    public Unit(int x, int y, boolean left, float maxHp, float defense,
+    public Unit(int x, int y, boolean left, String id, float maxHp, float defense,
                 int price, int height, float killRewardMultiplier, String iconPath, String flippedIconPath) {
         this.x = x;
         this.y = y;
         this.left = left;
+        this.id = id;
         this.maxHp = maxHp;
         this.hp = maxHp;
         this.defense = defense;
@@ -91,6 +95,8 @@ public abstract class Unit implements IUnit, Placeable {
         return name;
     }
 
+
+
     @Override
     public String getIconPath() {
         return iconPath;
@@ -109,6 +115,11 @@ public abstract class Unit implements IUnit, Placeable {
     @Override
     public boolean isLeft() {
         return left;
+    }
+
+    @Override
+    public String getId() {
+        return id;
     }
 
     @Override

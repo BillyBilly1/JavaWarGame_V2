@@ -23,6 +23,8 @@ public interface IUnit {
 
     boolean isLeft();
 
+    String getId();
+
     float getMaxHp();
 
     float getHp();

@@ -19,8 +19,8 @@ public class StoneWall extends Building{
     private static final String flippedIconPath = "src/icon/flipped/FlippedStoneWall.PNG";
 
 
-    public StoneWall(int x, int y, boolean left){
-        super(x, y, left, defaultMaxHp, defaultDefense, defaultPrice,
+    public StoneWall(int x, int y, boolean left, String id){
+        super(x, y, left, id, defaultMaxHp, defaultDefense, defaultPrice,
                 defaultMaintenanceFee, defaultHeight, defaultKillRewardMultiplier,
                 iconPath, flippedIconPath);
     }
