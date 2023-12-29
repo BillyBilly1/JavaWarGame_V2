@@ -13,7 +13,7 @@ public class Game implements IGame{
 
     private int turn = 0;
 
-    private boolean leftTure = true;
+    private boolean leftTurn = true;
 
     public Game(IBoard board, IPlayer player1, IPlayer player2) {
         this.board = board;

@@ -114,6 +114,9 @@ public abstract class CombatUnit extends Unit implements ICombatUnit, CanAttack 
     public int getStrength() {
         double adjustedHp = Math.max(hp, 0);
         double normalizedHp  = adjustedHp / maxHp;
+        // Calculate hpEffect, which is the combined result of square root and cubic function,
+        // each multiplied by their respective coefficients.
+        // When normalizedHp = 1, hpEffect equals 1 as Math.sqrt(1) = 1 and Math.pow(1, 3) = 1.
         double hpEffect = 0.7 * Math.sqrt(normalizedHp) + 0.3 * Math.pow(normalizedHp, 3);
         return (int) hpEffect * price;
     }
