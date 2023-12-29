@@ -1,8 +1,11 @@
 // Copyright (c) 2023 Yida Li (GitHub: BillyBilly1)
 // All rights reserved.
-// This code may not be reproduced, modified, distributed,
-// or used in any manner except in accordance with the terms
-// specified in a written agreement.
+// The code in all the files in this repository,
+// as well as the icons located in the src\icon directory,
+// are the original works of the author.
+// No part of the code or icons may be reproduced, modified, distributed,
+// or used in any manner except with the express written permission of the original author.
+
 
 import domain.entity.unit.IUnit;
 import domain.entity.unit.IUnitFactory;

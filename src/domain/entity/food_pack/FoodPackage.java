@@ -18,8 +18,7 @@ public enum FoodPackage implements IFoodPackage{
     }
 
     @Override
-    public int getPrice() {
-        return this.price;
+    public int getPrice() {return this.price;
     }
 
     @Override

@@ -53,4 +53,6 @@ public interface IPlayer {
     int getTotalOperationNum();
 
     int getTotalFoodConsumption();
+
+    boolean isLost();
 }
