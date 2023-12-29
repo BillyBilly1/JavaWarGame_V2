@@ -1,20 +1,39 @@
 package data_access.player;
 
 import domain.entity.Player.IPlayer;
+import use_case.set_up_players.SetUpPlayersDataAccessInterface;
 
-public class InMemoryPlayerDataAccessObject implements PlayerDataAccessInterface{
+public class InMemoryPlayerDataAccessObject implements PlayerDataAccessInterface, SetUpPlayersDataAccessInterface {
 
-    private final IPlayer player1;
+    // The left attribute of player1 must always be true,
+    // while that of player2 must always be false
+    private IPlayer player1;
 
-    private final IPlayer player2;
+    private IPlayer player2;
 
-    public InMemoryPlayerDataAccessObject(IPlayer player1, IPlayer player2) {
-        this.player1 = player1;
-        this.player2 = player2;
-    }
 
     @Override
     public IPlayer loadPlayer(boolean left) {
         return left ? player1 : player2;
+    }
+
+    @Override
+    public void setPlayer(IPlayer player) {
+        if (player.isLeft()) {
+            if (this.player1 == null) {
+                this.player1 = player;
+            }
+            else {
+                throw new IllegalStateException("Player1 is already set.");
+            }
+        }
+        else {
+            if (this.player2 == null) {
+                this.player2 = player;
+            }
+            else {
+                throw new IllegalStateException("Player2 is already set.");
+            }
+        }
     }
 }

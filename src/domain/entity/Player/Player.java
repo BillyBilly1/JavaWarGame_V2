@@ -6,6 +6,8 @@ import domain.entity.unit.building.IBuilding;
 import domain.entity.unit.combat_unit.ICombatUnit;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Player implements IPlayer{
 
@@ -46,18 +48,18 @@ public class Player implements IPlayer{
     }
 
     @Override
-    public ArrayList<ICombatUnit> getCombatUnitList() {
-        return combatUnitList;
+    public List<ICombatUnit> getCombatUnitList() {
+        return Collections.unmodifiableList(combatUnitList);
     }
 
     @Override
-    public ArrayList<IBuilding> getBuildingList() {
-        return buildingList;
+    public List<IBuilding> getBuildingList() {
+        return Collections.unmodifiableList(buildingList);
     }
 
     @Override
-    public ArrayList<Item> getItemList() {
-        return itemList;
+    public List<Item> getItemList() {
+        return Collections.unmodifiableList(itemList);
     }
 
     @Override

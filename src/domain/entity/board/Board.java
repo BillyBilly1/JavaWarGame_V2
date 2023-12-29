@@ -18,7 +18,16 @@ public class Board implements IBoard{
 
     @Override
     public Placeable[][] getGrid() {
-        return grid;
+        Placeable[][] gridCopy = new Placeable[width][height];
+        for (int i = 0; i < width; i++) {
+            System.arraycopy(grid[i], 0, gridCopy[i], 0, height);
+        }
+        return gridCopy;
+    }
+
+    @Override
+    public Placeable getPlaceableAt(int x, int y) {
+        return grid[x][y];
     }
 
     @Override

@@ -5,4 +5,6 @@ import domain.entity.game.IGame;
 public interface GameDataAccessInterface {
 
     IGame loadGame();
+
+    void setGame(IGame game);
 }

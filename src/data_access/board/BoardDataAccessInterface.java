@@ -6,4 +6,6 @@ public interface BoardDataAccessInterface {
 
     IBoard loadBoard();
 
+    void setBoard(IBoard board);
+
 }

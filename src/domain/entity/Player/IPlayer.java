@@ -5,6 +5,7 @@ import domain.entity.unit.building.IBuilding;
 import domain.entity.unit.combat_unit.ICombatUnit;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface IPlayer {
 
@@ -12,11 +13,11 @@ public interface IPlayer {
 
     boolean isLeft();
 
-    ArrayList<ICombatUnit> getCombatUnitList();
+    List<ICombatUnit> getCombatUnitList();
 
-    ArrayList<IBuilding> getBuildingList();
+    List<IBuilding> getBuildingList();
 
-    ArrayList<Item> getItemList();
+    List<Item> getItemList();
 
     void addCombatUnit(ICombatUnit combatUnit);
 
