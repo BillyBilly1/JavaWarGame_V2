@@ -1,17 +1,14 @@
-package data_access.board;
+package database.board;
 
 import domain.entity.board.IBoard;
 
-public class InMemoryBoardDataAccessInterface implements BoardDataAccessInterface{
-
+public class InMemoryBoardRepository implements BoardRepositoryInterface{
     private IBoard board;
 
-    @Override
     public IBoard loadBoard() {
         return board;
     }
 
-    @Override
     public void setBoard(IBoard board) {
         if (this.board == null) {
             this.board = board;

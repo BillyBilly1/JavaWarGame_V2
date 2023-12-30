@@ -1,9 +1,8 @@
-package data_access.game;
+package database.game;
 
-import domain.entity.game.Game;
 import domain.entity.game.IGame;
 
-public class InMemoryGameDataAccessObject implements GameDataAccessInterface{
+public class InMemoryGameRepository implements GameRepositoryInterface {
 
     private IGame game;
 

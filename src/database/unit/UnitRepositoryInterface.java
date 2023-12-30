@@ -1,10 +1,10 @@
-package data_access.unit;
+package database.unit;
 
 import domain.entity.unit.IUnit;
 
 import java.util.Collection;
 
-public interface UnitDataAccessInterface {
+public interface UnitRepositoryInterface {
 
     void addUnit(IUnit unit);
 

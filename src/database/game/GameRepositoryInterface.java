@@ -1,8 +1,8 @@
-package data_access.game;
+package database.game;
 
 import domain.entity.game.IGame;
 
-public interface GameDataAccessInterface {
+public interface GameRepositoryInterface {
 
     IGame loadGame();
 

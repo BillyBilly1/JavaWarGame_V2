@@ -30,5 +30,6 @@ public class SetUpPlayersInteractor implements SetUpPlayersInputBoundary{
         // The left parameter of the first player must be true, and that of the second is false.
         setUpPlayersDataAccessObject.setPlayer(playerFactory.createPlayer
                 (name2, false, money, foodAmount));
+        setUpPlayersPresenter.prepareSuccessView();
     }
 }

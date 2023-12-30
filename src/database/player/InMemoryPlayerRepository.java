@@ -1,9 +1,8 @@
-package data_access.player;
+package database.player;
 
 import domain.entity.Player.IPlayer;
-import use_case.set_up_players.SetUpPlayersDataAccessInterface;
 
-public class InMemoryPlayerDataAccessObject implements PlayerDataAccessInterface, SetUpPlayersDataAccessInterface {
+public class InMemoryPlayerRepository implements PlayerRepositoryInterface{
 
     // The left attribute of player1 must always be true,
     // while that of player2 must always be false

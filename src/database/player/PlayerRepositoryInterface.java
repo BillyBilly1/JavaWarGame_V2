@@ -1,8 +1,8 @@
-package data_access.player;
+package database.player;
 
 import domain.entity.Player.IPlayer;
 
-public interface PlayerDataAccessInterface {
+public interface PlayerRepositoryInterface {
 
     IPlayer loadPlayer(boolean left);
 

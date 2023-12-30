@@ -1,11 +1,11 @@
-package data_access.unit;
+package database.unit;
 
 import domain.entity.unit.IUnit;
 
 import java.util.Collection;
 import java.util.HashMap;
 
-public class InMemoryDataAccessObject implements UnitDataAccessInterface{
+public class InMemoryUnitRepository implements UnitRepositoryInterface{
 
     private final HashMap<String, IUnit> units = new HashMap<>();
 

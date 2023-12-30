@@ -1,8 +1,8 @@
-package data_access.board;
+package database.board;
 
 import domain.entity.board.IBoard;
 
-public interface BoardDataAccessInterface {
+public interface BoardRepositoryInterface {
 
     IBoard loadBoard();
 
