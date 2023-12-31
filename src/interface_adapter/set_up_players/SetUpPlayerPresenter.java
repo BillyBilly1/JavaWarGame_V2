@@ -29,7 +29,6 @@ public class SetUpPlayerPresenter implements SetUpPlayersOutputBoundary {
         JOptionPane.showMessageDialog(null, message);
         viewManagerModel.setActiveView("initialize game");
         viewManagerModel.firePropertyChanged();
-
     }
 
     @Override

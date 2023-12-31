@@ -20,10 +20,11 @@ import use_case.set_up_players.SetUpPlayersInputBoundary;
 import use_case.set_up_players.SetUpPlayersInteractor;
 import use_case.set_up_players.SetUpPlayersOutputBoundary;
 import view.SetUpPlayersView;
+import view.ViewManager;
 import view_factory.SetUpPlayersViewFactory;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
+import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -43,26 +44,28 @@ public class Main {
                 setUpPlayersViewModel, playerRepository);
 
 
-        SwingUtilities.invokeLater(() -> {
-            // 创建 JFrame 实例
-            JFrame frame = new JFrame("Set Up Players");
 
 
-            // 设置关闭操作，确保应用程序可以正确关闭
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JFrame application = new JFrame("JWarGame");
+        application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        CardLayout cardLayout = new CardLayout();
+
+        // Register all the views
+        JPanel views = new JPanel(cardLayout);
+        views.add(setUpPlayersView);
 
 
-            // 将 SetUpPlayersView 添加到 JFrame
-            frame.add(setUpPlayersView);
+        application.add(views);
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+        new ViewManager(views, cardLayout, viewManagerModel);
+        viewManagerModel.setActiveView("set up players");
 
-            // 调整 JFrame 大小以适应组件
-            frame.pack();
+        application.pack();
 
-            frame.setLocationRelativeTo(null);
+        application.setLocationRelativeTo(null);
 
+        application.setVisible(true);
 
-            // 设置 JFrame 为可见
-            frame.setVisible(true);
-        });
     }
 }

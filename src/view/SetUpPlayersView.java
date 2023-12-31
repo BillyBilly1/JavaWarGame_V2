@@ -15,7 +15,7 @@ import java.beans.PropertyChangeListener;
 
 public class SetUpPlayersView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    public final String viewName = "set up players";
+    public  final String viewName = "set up players";
 
     private final SetUpPlayersViewModel setUpPlayersViewModel;
 
