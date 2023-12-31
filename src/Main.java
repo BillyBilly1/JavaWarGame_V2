@@ -1,4 +1,3 @@
-import data_access.SetUpPlayerDataAccessObject;
 import database.board.BoardRepositoryInterface;
 import database.board.InMemoryBoardRepository;
 import database.game.GameRepositoryInterface;
@@ -7,18 +6,11 @@ import database.player.InMemoryPlayerRepository;
 import database.player.PlayerRepositoryInterface;
 import database.unit.InMemoryUnitRepository;
 import database.unit.UnitRepositoryInterface;
-import domain.entity.Player.IPlayerFactory;
-import domain.entity.Player.PlayerFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.initialize_game.InitializeGameController;
 import interface_adapter.initialize_game.InitializeGameViewModel;
-import interface_adapter.set_up_players.SetUpPlayerPresenter;
-import interface_adapter.set_up_players.SetUpPlayersController;
-import interface_adapter.set_up_players.SetUpPlayersState;
 import interface_adapter.set_up_players.SetUpPlayersViewModel;
-import use_case.set_up_players.SetUpPlayersDataAccessInterface;
-import use_case.set_up_players.SetUpPlayersInputBoundary;
-import use_case.set_up_players.SetUpPlayersInteractor;
-import use_case.set_up_players.SetUpPlayersOutputBoundary;
+import view.InitializeGameView;
 import view.SetUpPlayersView;
 import view.ViewManager;
 import view_factory.SetUpPlayersViewFactory;
@@ -39,11 +31,16 @@ public class Main {
         SetUpPlayersViewModel setUpPlayersViewModel = new SetUpPlayersViewModel();
         InitializeGameViewModel initializeGameViewModel = new InitializeGameViewModel();
 
+        // ViewManagerModel
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+
         // Create Views
-        SetUpPlayersView setUpPlayersView = SetUpPlayersViewFactory.create(
+        SetUpPlayersView setUpPlayersView = SetUpPlayersViewFactory.create(viewManagerModel,
                 setUpPlayersViewModel, playerRepository);
 
 
+        InitializeGameView initializeGameView =
+                new InitializeGameView(initializeGameViewModel, new InitializeGameController());
 
 
         JFrame application = new JFrame("JWarGame");
@@ -53,13 +50,13 @@ public class Main {
 
         // Register all the views
         JPanel views = new JPanel(cardLayout);
-        views.add(setUpPlayersView);
+        views.add(setUpPlayersView, setUpPlayersViewModel.getViewName());
+        views.add(initializeGameView, initializeGameViewModel.getViewName());
 
 
         application.add(views);
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
-        viewManagerModel.setActiveView("set up players");
+        viewManagerModel.setActiveView(setUpPlayersViewModel.getViewName());
 
         application.pack();
 

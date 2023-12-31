@@ -4,5 +4,8 @@ public interface SetUpPlayersOutputBoundary {
 
     void prepareSuccessView(SetUpPlayersOutputData outputData);
 
-    void prepareFailView(SetUpPlayersOutputData outputData);
+    void prepareSameNameFailView(SetUpPlayersOutputData outputData);
+
+    void prepareInvalidInputFailView(SetUpPlayersOutputData outputData);
+
 }

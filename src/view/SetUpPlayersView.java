@@ -15,13 +15,13 @@ import java.beans.PropertyChangeListener;
 
 public class SetUpPlayersView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    public  final String viewName = "set up players";
+    private final String viewName = "set up players";
 
     private final SetUpPlayersViewModel setUpPlayersViewModel;
 
     private final SetUpPlayersController setUpPlayersController;
 
-    private final JLabel titleLabel = new JLabel("Set up both players");
+    private final JLabel titleLabel = new JLabel("Player Configuration");
 
     private final JLabel player1NameLabel = new JLabel("Player1's name: ");
 
@@ -54,6 +54,7 @@ public class SetUpPlayersView extends JPanel implements ActionListener, Property
         this.setUpPlayersViewModel = setUpPlayersViewModel;
         this.setUpPlayersController = setUpPlayersController;
 
+        // Set the dimension of the view based on the screen size
         Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) (screenDimension.width * widthCoefficient);
         int height = (int) (screenDimension.height * heightCoefficient);
@@ -61,7 +62,7 @@ public class SetUpPlayersView extends JPanel implements ActionListener, Property
 
         setLayout(new BorderLayout());
 
-        Font titleFont = new Font("titleFont", Font.BOLD, 16);
+        Font titleFont = new Font("titleFont", Font.BOLD, 25);
         Font labelFont = new Font("labelFont", Font.BOLD, 13);
 
 

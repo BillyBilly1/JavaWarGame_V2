@@ -14,13 +14,15 @@ import use_case.set_up_players.SetUpPlayersInputBoundary;
 import use_case.set_up_players.SetUpPlayersInteractor;
 import use_case.set_up_players.SetUpPlayersOutputBoundary;
 import view.SetUpPlayersView;
+import view.ViewManager;
 
 public class SetUpPlayersViewFactory {
 
-    public static SetUpPlayersView create(SetUpPlayersViewModel setUpPlayersViewModel,
+    public static SetUpPlayersView create(ViewManagerModel viewManagerModel,
+                                          SetUpPlayersViewModel setUpPlayersViewModel,
                                           PlayerRepositoryInterface playerRepository) {
 
-        SetUpPlayersController setUpPlayersController = createController(
+        SetUpPlayersController setUpPlayersController = createController(viewManagerModel,
                 setUpPlayersViewModel, playerRepository);
 
 
@@ -28,10 +30,10 @@ public class SetUpPlayersViewFactory {
     }
 
 
-    private static SetUpPlayersController createController(SetUpPlayersViewModel setUpPlayersViewModel,
+    private static SetUpPlayersController createController(ViewManagerModel viewManagerModel,
+                                                           SetUpPlayersViewModel setUpPlayersViewModel,
                                                            PlayerRepositoryInterface playerRepository) {
         InitializeGameViewModel initializeGameViewModel = new InitializeGameViewModel();
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
         SetUpPlayersDataAccessInterface setUpPlayersDataAccessObject
                 = new SetUpPlayerDataAccessObject(playerRepository);
         IPlayerFactory playerFactory = new PlayerFactory();

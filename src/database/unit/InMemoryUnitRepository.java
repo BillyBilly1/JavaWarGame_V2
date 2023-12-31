@@ -9,7 +9,6 @@ public class InMemoryUnitRepository implements UnitRepositoryInterface{
 
     private final HashMap<String, IUnit> units = new HashMap<>();
 
-
     @Override
     public void addUnit(IUnit unit) {
         units.put(unit.getId(), unit);

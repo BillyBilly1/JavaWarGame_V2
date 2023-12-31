@@ -27,22 +27,29 @@ public class SetUpPlayerPresenter implements SetUpPlayersOutputBoundary {
     public void prepareSuccessView(SetUpPlayersOutputData outputData) {
         String message = outputData.getMessage();
         JOptionPane.showMessageDialog(null, message);
-        viewManagerModel.setActiveView("initialize game");
+        viewManagerModel.setActiveView(initializeGameViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
+
     @Override
-    public void prepareFailView(SetUpPlayersOutputData outputData) {
+    public void prepareSameNameFailView(SetUpPlayersOutputData outputData) {
 
         SetUpPlayersState currentState = new SetUpPlayersState(setUpPlayersViewModel.getSetUpPlayersState());
         currentState.setPlayer1Name("");
         currentState.setPlayer2Name("");
         setUpPlayersViewModel.setSetUpPlayersState(currentState);
         String errorMessage = outputData.getMessage();
-        JOptionPane.showMessageDialog(null,
-                errorMessage,
+        JOptionPane.showMessageDialog(null, errorMessage,
                 "Input Error", JOptionPane.ERROR_MESSAGE);
         setUpPlayersViewModel.firePropertyChanged("sameName");
+    }
+
+    @Override
+    public void prepareInvalidInputFailView(SetUpPlayersOutputData outputData) {
+        String errorMessage = outputData.getMessage();
+        JOptionPane.showMessageDialog(null, errorMessage,
+                "Input Error", JOptionPane.ERROR_MESSAGE);
 
     }
 }
