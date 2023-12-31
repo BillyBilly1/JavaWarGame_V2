@@ -6,12 +6,12 @@ public class SetUpPlayersInputData {
 
     private final String name2;
 
-    private final int money;
+    private final String money;
 
-    private final int foodAmount;
+    private final String foodAmount;
 
 
-    public SetUpPlayersInputData(String name1, String name2, int money, int foodAmount) {
+    public SetUpPlayersInputData(String name1, String name2, String money, String foodAmount) {
         this.name1 = name1;
         this.name2 = name2;
         this.money = money;
@@ -26,11 +26,11 @@ public class SetUpPlayersInputData {
         return name2;
     }
 
-    public int getMoney() {
+    public String getMoney() {
         return money;
     }
 
-    public int getFoodAmount() {
+    public String getFoodAmount() {
         return foodAmount;
     }
 }

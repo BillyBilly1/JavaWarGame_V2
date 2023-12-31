@@ -1,46 +1,48 @@
-// Copyright (c) 2023 Yida Li (GitHub: BillyBilly1)
-// All rights reserved.
-// The code in all the files in this repository,
-// as well as the icons located in the src\icon directory,
-// are the original works of the author.
-// No part of the code or icons may be reproduced, modified, distributed,
-// or used in any manner except with the express written permission of the original author.
+import data_access.SetUpPlayerDataAccessObject;
+import database.player.InMemoryPlayerRepository;
+import database.player.PlayerRepositoryInterface;
+import domain.entity.Player.IPlayerFactory;
+import domain.entity.Player.PlayerFactory;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.initialize_game.InitializeGameViewModel;
+import interface_adapter.set_up_players.SetUpPlayerPresenter;
+import interface_adapter.set_up_players.SetUpPlayersController;
+import interface_adapter.set_up_players.SetUpPlayersState;
+import interface_adapter.set_up_players.SetUpPlayersViewModel;
+import use_case.set_up_players.SetUpPlayersDataAccessInterface;
+import use_case.set_up_players.SetUpPlayersInputBoundary;
+import use_case.set_up_players.SetUpPlayersInteractor;
+import use_case.set_up_players.SetUpPlayersOutputBoundary;
+import view.SetUpPlayersView;
+import view_factory.SetUpPlayersViewFactory;
 
-
-import domain.entity.unit.IUnit;
-import domain.entity.unit.IUnitFactory;
-import domain.entity.unit.UnitFactory;
-import domain.service.id.SingletonIntegerIDGenerator;
-
-import javax.swing.*;
-import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 public class Main {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            // 创建 JFrame 实例
+            JFrame frame = new JFrame("Set Up Players");
 
-    public static void main(String[] args) throws
-            InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
-        IUnitFactory iUnitFactory = new UnitFactory(SingletonIntegerIDGenerator.getInstance());
-        IUnit unit = iUnitFactory.createUnit("SpearGuard", 1, 2, false);
-        IUnit unit1 = iUnitFactory.createUnit("LanceKnight", 2, 3, false);
-        System.out.println(unit.getX());
-        System.out.println(unit.getDefense());
-        System.out.println(unit.getName());
-        System.out.println(unit.getId());
-        System.out.println(unit1.getId());
-        System.out.println(unit1.getName());
-        JFrame jFrame = new JFrame("");
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            PlayerRepositoryInterface playerRepository = new InMemoryPlayerRepository();
 
-        JLabel iconLabel = new JLabel(
-                new ImageIcon(unit1.getDisplayedIcon().getImage().getScaledInstance(
-                        378, 378, Image.SCALE_SMOOTH)));
-        jFrame.setLayout(new FlowLayout());
-        jFrame.add(iconLabel);
+            // 设置关闭操作，确保应用程序可以正确关闭
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            SetUpPlayersViewModel setUpPlayersViewModel = new SetUpPlayersViewModel();
+            SetUpPlayersView setUpPlayersView = SetUpPlayersViewFactory.create(setUpPlayersViewModel);
 
-        jFrame.setPreferredSize(new Dimension(400, 400));
-        jFrame.pack();
-        jFrame.setLocationRelativeTo(null); // 中心位置
-        jFrame.setVisible(true);
+            // 将 SetUpPlayersView 添加到 JFrame
+            frame.add(setUpPlayersView);
+
+            // 调整 JFrame 大小以适应组件
+            frame.pack();
+
+            frame.setLocationRelativeTo(null);
+
+
+            // 设置 JFrame 为可见
+            frame.setVisible(true);
+        });
     }
 }

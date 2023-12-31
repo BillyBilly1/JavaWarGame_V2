@@ -1,5 +1,7 @@
 package all_class;
 
+import domain.entity.terrain.ITerrain;
+import domain.entity.terrain.Water;
 import domain.entity.unit.IUnit;
 import domain.entity.unit.UnitFactory;
 import domain.entity.unit.building.StoneWall;
@@ -17,6 +19,9 @@ public class AllClassList {
 
     private static final ArrayList<Class <? extends IUnit>> UnitClassList = new ArrayList<>();
 
+    private static final ArrayList<Class <? extends ITerrain>> TerrainClassList = new ArrayList<>();
+
+    // Unit
     static {
         // CombatUnit -- melee
         UnitClassList.add(SpearGuard.class);
@@ -33,8 +38,18 @@ public class AllClassList {
         UnitClassList.add(StoneWall.class);
     }
 
+    // Terrain
+    static {
+        TerrainClassList.add(Water.class);
+    }
+
+
     public static List<Class <? extends IUnit>> getUnitClassList() {
         return Collections.unmodifiableList(UnitClassList);
+    }
+
+    public static List<Class <? extends ITerrain>> getTerrainClassList() {
+        return Collections.unmodifiableList(TerrainClassList);
     }
 
 }

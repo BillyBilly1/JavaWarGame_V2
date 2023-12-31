@@ -3,7 +3,7 @@ package use_case.set_up_players;
 import domain.entity.Player.IPlayerFactory;
 import domain.entity.Player.PlayerFactory;
 
-public class SetUpPlayersInteractor implements SetUpPlayersInputBoundary{
+public class SetUpPlayersInteractor implements SetUpPlayersInputBoundary {
 
     final SetUpPlayersDataAccessInterface setUpPlayersDataAccessObject;
 
@@ -23,13 +23,27 @@ public class SetUpPlayersInteractor implements SetUpPlayersInputBoundary{
     public void execute(SetUpPlayersInputData setUpPlayersInputData) {
         String name1 = setUpPlayersInputData.getName1();
         String name2 = setUpPlayersInputData.getName2();
-        int money = setUpPlayersInputData.getMoney();
-        int foodAmount = setUpPlayersInputData.getFoodAmount();
-        setUpPlayersDataAccessObject.setPlayer(playerFactory.createPlayer
-                (name1, true, money, foodAmount));
-        // The left parameter of the first player must be true, and that of the second is false.
-        setUpPlayersDataAccessObject.setPlayer(playerFactory.createPlayer
-                (name2, false, money, foodAmount));
-        setUpPlayersPresenter.prepareSuccessView();
+
+        if (name1.equals(name2)) {
+            SetUpPlayersOutputData setUpPlayersOutputData =
+                    new SetUpPlayersOutputData("Player1's name and Player2's name cannot be the same, " +
+                            "please try again.");
+            setUpPlayersPresenter.prepareFailView(setUpPlayersOutputData);
+
+        }
+        // Note that money and foodAmount must be able to be converted to integers
+        // since they are already checked to be digits in ViewModel.
+        else {
+            int money = Integer.parseInt(setUpPlayersInputData.getMoney());
+
+            int foodAmount = Integer.parseInt(setUpPlayersInputData.getFoodAmount());
+            setUpPlayersDataAccessObject.setPlayer(playerFactory.createPlayer
+                    (name1, true, money, foodAmount));
+            // The left parameter of the first player must be true, and that of the second is false.
+            setUpPlayersDataAccessObject.setPlayer(playerFactory.createPlayer
+                    (name2, false, money, foodAmount));
+            SetUpPlayersOutputData setUpPlayersOutputData =
+                    new SetUpPlayersOutputData("Player1 and Player2 are successfully created.");
+            setUpPlayersPresenter.prepareSuccessView(setUpPlayersOutputData);}
     }
 }

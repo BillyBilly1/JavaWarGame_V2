@@ -1,6 +1,8 @@
 package domain.entity.board;
 
 import domain.entity.Placeable;
+import exception.MoneyNotEnoughException;
+import exception.TileOccupiedException;
 
 public class Board implements IBoard{
 
@@ -31,12 +33,12 @@ public class Board implements IBoard{
     }
 
     @Override
-    public void placePiece(int x, int y, Placeable placeable) {
+    public void placePiece(int x, int y, Placeable placeable) throws TileOccupiedException {
         if (x < 0 || x >= width || y < 0 || y >= height) {
             throw new IndexOutOfBoundsException("Position (" + x + ", " + y + ") is out of the board's bounds.");
         }
         if (grid[x][y] != null) {
-            throw new IllegalStateException("Position (" + x + ", " + y + ") is already occupied.");
+            throw new TileOccupiedException("Position (" + x + ", " + y + ") is already occupied.");
         }
         grid[x][y] = placeable;
     }
@@ -47,6 +49,19 @@ public class Board implements IBoard{
         int y = placeable.getY();
         if (x >= 0 && x < width && y >= 0 && y < height) {
             if (grid[x][y] == placeable) {
+                grid[x][y] = null;
+            } else {
+                throw new IllegalArgumentException("Placeable is not at this position.");
+            }
+        } else {
+            throw new IndexOutOfBoundsException("Position (" + x + ", " + y + ") is out of the board's bounds.");
+        }
+    }
+
+    @Override
+    public void removePiece(int x, int y) {
+        if (x >= 0 && x < width && y >= 0 && y < height) {
+            if (grid[x][y] != null) {
                 grid[x][y] = null;
             } else {
                 throw new IllegalArgumentException("Placeable is not at this position.");

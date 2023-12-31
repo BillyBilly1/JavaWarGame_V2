@@ -1,8 +1,10 @@
 package domain.entity.unit;
 
+import domain.entity.Placeable;
+
 import javax.swing.*;
 
-public interface IUnit {
+public interface IUnit extends Placeable {
     int getX();
 
     void setX(int x);
