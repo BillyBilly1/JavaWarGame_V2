@@ -30,8 +30,8 @@ public class InitializeGameInteractor implements InitializeGameInputBoundary {
     @Override
     public void execute(InitializeGameInputData initializeGameInputData) {
         // create and save a board
-        int width = initializeGameInputData.getWidth();
-        int height = initializeGameInputData.getHeight();
+        int width = Integer.parseInt(initializeGameInputData.getWidth());
+        int height = Integer.parseInt(initializeGameInputData.getHeight());
         IBoard board = BoardFactory.createBoard(width, height);
         initializeGameDataAccessObject.setBoard(board);
 

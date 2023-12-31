@@ -2,20 +2,20 @@ package use_case.initialize_game;
 
 public class InitializeGameInputData {
 
-    private final int width;
+    private final String width;
 
-    private final int height;
+    private final String height;
 
-    public InitializeGameInputData(int width, int height) {
+    public InitializeGameInputData(String width, String height) {
         this.width = width;
         this.height = height;
     }
 
-    public int getWidth() {
+    public String getWidth() {
         return width;
     }
 
-    public int getHeight() {
+    public String getHeight() {
         return height;
     }
 }

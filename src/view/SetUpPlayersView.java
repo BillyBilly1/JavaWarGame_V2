@@ -240,7 +240,5 @@ public class SetUpPlayersView extends JPanel implements ActionListener, Property
             player1NameTextField.setText(setUpPlayersViewModel.getSetUpPlayersState().getPlayer1Name());
             player2NameTextField.setText(setUpPlayersViewModel.getSetUpPlayersState().getPlayer2Name());
         }
-
-
     }
 }

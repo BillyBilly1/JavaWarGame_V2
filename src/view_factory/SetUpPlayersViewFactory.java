@@ -1,7 +1,6 @@
 package view_factory;
 
 import data_access.SetUpPlayerDataAccessObject;
-import database.player.InMemoryPlayerRepository;
 import database.player.PlayerRepositoryInterface;
 import domain.entity.Player.IPlayerFactory;
 import domain.entity.Player.PlayerFactory;
@@ -18,16 +17,19 @@ import view.SetUpPlayersView;
 
 public class SetUpPlayersViewFactory {
 
-    public static SetUpPlayersView create(SetUpPlayersViewModel setUpPlayersViewModel) {
+    public static SetUpPlayersView create(SetUpPlayersViewModel setUpPlayersViewModel,
+                                          PlayerRepositoryInterface playerRepository) {
 
-        SetUpPlayersController setUpPlayersController = createController(setUpPlayersViewModel);
+        SetUpPlayersController setUpPlayersController = createController(
+                setUpPlayersViewModel, playerRepository);
 
 
         return new SetUpPlayersView(setUpPlayersViewModel, setUpPlayersController);
     }
 
-    private static SetUpPlayersController createController(SetUpPlayersViewModel setUpPlayersViewModel) {
-        PlayerRepositoryInterface playerRepository = new InMemoryPlayerRepository();
+
+    private static SetUpPlayersController createController(SetUpPlayersViewModel setUpPlayersViewModel,
+                                                           PlayerRepositoryInterface playerRepository) {
         InitializeGameViewModel initializeGameViewModel = new InitializeGameViewModel();
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         SetUpPlayersDataAccessInterface setUpPlayersDataAccessObject

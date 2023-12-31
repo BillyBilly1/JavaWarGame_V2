@@ -1,6 +1,12 @@
 import data_access.SetUpPlayerDataAccessObject;
+import database.board.BoardRepositoryInterface;
+import database.board.InMemoryBoardRepository;
+import database.game.GameRepositoryInterface;
+import database.game.InMemoryGameRepository;
 import database.player.InMemoryPlayerRepository;
 import database.player.PlayerRepositoryInterface;
+import database.unit.InMemoryUnitRepository;
+import database.unit.UnitRepositoryInterface;
 import domain.entity.Player.IPlayerFactory;
 import domain.entity.Player.PlayerFactory;
 import interface_adapter.ViewManagerModel;
@@ -21,16 +27,30 @@ import javax.swing.SwingUtilities;
 
 public class Main {
     public static void main(String[] args) {
+        // Create InMemory Repositories
+        UnitRepositoryInterface unitRepository = new InMemoryUnitRepository();
+        PlayerRepositoryInterface playerRepository = new InMemoryPlayerRepository();
+        BoardRepositoryInterface boardRepository = new InMemoryBoardRepository();
+        GameRepositoryInterface gameRepository = new InMemoryGameRepository();
+
+
+        // Create ViewModels
+        SetUpPlayersViewModel setUpPlayersViewModel = new SetUpPlayersViewModel();
+        InitializeGameViewModel initializeGameViewModel = new InitializeGameViewModel();
+
+        // Create Views
+        SetUpPlayersView setUpPlayersView = SetUpPlayersViewFactory.create(
+                setUpPlayersViewModel, playerRepository);
+
+
         SwingUtilities.invokeLater(() -> {
             // 创建 JFrame 实例
             JFrame frame = new JFrame("Set Up Players");
 
-            PlayerRepositoryInterface playerRepository = new InMemoryPlayerRepository();
 
             // 设置关闭操作，确保应用程序可以正确关闭
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            SetUpPlayersViewModel setUpPlayersViewModel = new SetUpPlayersViewModel();
-            SetUpPlayersView setUpPlayersView = SetUpPlayersViewFactory.create(setUpPlayersViewModel);
+
 
             // 将 SetUpPlayersView 添加到 JFrame
             frame.add(setUpPlayersView);
