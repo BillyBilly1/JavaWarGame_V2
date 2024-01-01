@@ -5,16 +5,14 @@ import domain.entity.board.IBoard;
 import domain.entity.unit.IUnitFactory;
 import domain.entity.unit.combat_unit.ICombatUnit;
 import exception.InvalidPlacementException;
+import exception.MoneyNotEnoughException;
 import exception.TileOccupiedException;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class PlaceCombatUnitInteractor implements PlaceCombatUnitInputBoundary{
-
+public class PlaceCombatUnitInteractor implements PlaceCombatUnitInputBoundary {
     final PlaceCombatUnitDataAccessInterface placeCombatUnitDataAccessObject;
-
     final PlaceCombatUnitOutputBoundary placeCombatUnitOutputPresenter;
-
     final IUnitFactory unitFactory;
 
     public PlaceCombatUnitInteractor(PlaceCombatUnitDataAccessInterface placeCombatUnitDataAccessObject,
@@ -34,27 +32,34 @@ public class PlaceCombatUnitInteractor implements PlaceCombatUnitInputBoundary{
         boolean left = placeCombatUnitInputData.isLeft();
         String combatUnitType = placeCombatUnitInputData.getCombatUnitType();
         IBoard board = placeCombatUnitDataAccessObject.loadBoard();
-        // For explanation, refer to that in PlaceTerrainInteractor
-        if (!board.isOccupied(x, y)) {
-            try {
-                // Create the combatUnit and put it onto the board and into the user's combatUnit list
-                ICombatUnit combatUnit = (ICombatUnit) unitFactory.createUnit(combatUnitType, x, y, left);
-                board.placePiece(x, y, combatUnit);
-                IPlayer player = placeCombatUnitDataAccessObject.loadPlayer(left);
-                player.addCombatUnit(combatUnit, board.getWidth());
+        IPlayer player = placeCombatUnitDataAccessObject.loadPlayer(left);
 
-                PlaceCombatUnitOutputData placeCombatUnitOutputData =
-                        new PlaceCombatUnitOutputData(combatUnitType + " is successfully placed.");
-                placeCombatUnitOutputPresenter.prepareSuccessView(placeCombatUnitOutputData);
-            } catch (TileOccupiedException | InvalidPlacementException e) {
-                PlaceCombatUnitOutputData placeCombatUnitOutputData =
-                        new PlaceCombatUnitOutputData(e.getMessage());
-                placeCombatUnitOutputPresenter.prepareFailView(placeCombatUnitOutputData);
-            }
+        ICombatUnit combatUnit = (ICombatUnit) unitFactory.createUnit(combatUnitType, x, y, left);
+
+        String errorMessage = null;
+
+        if (board.isOccupied(x, y)) {
+            errorMessage = "Position at (" + x + ", " + y + ") is already occupied.";
+        } else if (!player.canPlaceUnitAt(x, combatUnit.getHeight(), board.getWidth())) {
+            errorMessage = "Invalid placement.";
+        } else if (player.getMoney() < combatUnit.getPrice() * player.getPriceCoefficient()) {
+            errorMessage = "You need " +
+                    (combatUnit.getPrice() * player.getPriceCoefficient() - player.getMoney()) +
+                    " more money to purchase " + combatUnitType;
         }
-        else {
-            String message = "Position at (" + x + ", " + y + ") is already occupied.";
-            placeCombatUnitOutputPresenter.prepareFailView(new PlaceCombatUnitOutputData(message));
+
+        if (errorMessage != null) {
+            PlaceCombatUnitOutputData placeCombatUnitOutputData = new PlaceCombatUnitOutputData(errorMessage);
+            placeCombatUnitOutputPresenter.prepareFailView(placeCombatUnitOutputData);
+            return;
         }
+
+        board.placePiece(x, y, combatUnit);
+        player.addCombatUnit(combatUnit);
+        player.setMoney(player.getMoney() - (int) (combatUnit.getPrice() * player.getPriceCoefficient()));
+
+        PlaceCombatUnitOutputData placeCombatUnitOutputData =
+                new PlaceCombatUnitOutputData(combatUnitType + " is successfully placed.");
+        placeCombatUnitOutputPresenter.prepareSuccessView(placeCombatUnitOutputData);
     }
 }

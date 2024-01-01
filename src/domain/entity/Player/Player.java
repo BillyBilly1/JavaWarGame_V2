@@ -4,7 +4,6 @@ import domain.entity.CanAttack;
 import domain.entity.item.Item;
 import domain.entity.unit.building.IBuilding;
 import domain.entity.unit.combat_unit.ICombatUnit;
-import exception.InvalidPlacementException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +28,8 @@ public class Player implements IPlayer {
     private int starvationDuration = 0;
 
     private int totalEnemyStrengthDefeated = 0;
+
+    private float priceCoefficient = 1;
 
 
     public Player(String name, boolean left, int money, int foodAmount) {
@@ -64,20 +65,9 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public void addCombatUnit(ICombatUnit combatUnit, int boardWidth) throws InvalidPlacementException {
-        if (combatUnit != null) {
-            int unitHeight = combatUnit.getHeight();
-            int x = combatUnit.getX();
-            if (canPlaceUnitAt(x, unitHeight, boardWidth)) {
-                combatUnitList.add(combatUnit);
-            } else {
-                int[] range = unitHeight == 1 ? getPlacementRangeForHeight1(boardWidth) :
-                        getPlacementRangeForHeight2(boardWidth);
-                throw new InvalidPlacementException("Cannot place unit at " + x +
-                        ". Valid range for units of height " + unitHeight +
-                        " is between " + range[0] + " and " + range[1] + ".");
-            }
-        }
+    public void addCombatUnit(ICombatUnit combatUnit) {
+        combatUnitList.add(combatUnit);
+
     }
 
     @Override
@@ -86,20 +76,8 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public void addBuilding(IBuilding building, int boardWidth) throws InvalidPlacementException {
-        if (building != null) {
-            int buildingHeight = building.getHeight();
-            int x = building.getX();
-            if (canPlaceUnitAt(x, buildingHeight, boardWidth)) {
-                buildingList.add(building);
-            } else {
-                int[] range = buildingHeight == 1 ? getPlacementRangeForHeight1(boardWidth) :
-                        getPlacementRangeForHeight2(boardWidth);
-                throw new InvalidPlacementException("Cannot place building at " + x +
-                        ". Valid range for buildings of height " + buildingHeight +
-                        " is between " + range[0] + " and " + range[1] + ".");
-            }
-        }
+    public void addBuilding(IBuilding building) {
+        buildingList.add(building);
     }
 
     @Override
@@ -170,6 +148,16 @@ public class Player implements IPlayer {
     @Override
     public void setTotalEnemyStrengthDefeated(int totalEnemyStrengthDefeated) {
         this.totalEnemyStrengthDefeated = totalEnemyStrengthDefeated;
+    }
+
+    @Override
+    public float getPriceCoefficient() {
+        return priceCoefficient;
+    }
+
+    @Override
+    public void setPriceCoefficient(float priceCoefficient) {
+        this.priceCoefficient = priceCoefficient;
     }
 
     /**

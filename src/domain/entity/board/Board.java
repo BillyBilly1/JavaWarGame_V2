@@ -32,12 +32,9 @@ public class Board implements IBoard{
     }
 
     @Override
-    public void placePiece(int x, int y, Placeable placeable) throws TileOccupiedException {
+    public void placePiece(int x, int y, Placeable placeable) {
         if (x < 0 || x >= width || y < 0 || y >= height) {
             throw new IndexOutOfBoundsException("Position (" + x + ", " + y + ") is out of the board's bounds.");
-        }
-        if (grid[x][y] != null) {
-            throw new TileOccupiedException("Position (" + x + ", " + y + ") is already occupied.");
         }
         grid[x][y] = placeable;
     }
@@ -50,10 +47,8 @@ public class Board implements IBoard{
             if (grid[x][y] == placeable) {
                 grid[x][y] = null;
             } else {
-                throw new IllegalArgumentException("Placeable is not at this position.");
+                throw new IndexOutOfBoundsException("Position (" + x + ", " + y + ") is out of the board's bounds.");
             }
-        } else {
-            throw new IndexOutOfBoundsException("Position (" + x + ", " + y + ") is out of the board's bounds.");
         }
     }
 

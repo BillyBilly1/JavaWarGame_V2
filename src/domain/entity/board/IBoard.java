@@ -9,7 +9,7 @@ public interface IBoard {
 
     Placeable getPlaceableAt(int x, int y);
 
-    void placePiece(int x, int y, Placeable placeable) throws TileOccupiedException;
+    void placePiece(int x, int y, Placeable placeable);
 
     void removePiece(Placeable placeable);
 

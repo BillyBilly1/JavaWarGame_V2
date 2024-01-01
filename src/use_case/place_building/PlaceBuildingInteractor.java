@@ -5,18 +5,16 @@ import domain.entity.board.IBoard;
 import domain.entity.unit.IUnitFactory;
 import domain.entity.unit.building.IBuilding;
 import exception.InvalidPlacementException;
+import exception.MoneyNotEnoughException;
 import exception.TileOccupiedException;
+import use_case.place_combatunit.PlaceCombatUnitOutputData;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class PlaceBuildingInteractor implements PlaceBuildingInputBoundary{
-
+public class PlaceBuildingInteractor implements PlaceBuildingInputBoundary {
     final PlaceBuildingDataAccessInterface placeBuildingDataAccessObject;
-
     final PlaceBuildingOutputBoundary placeBuildingOutputPresenter;
-
     final IUnitFactory unitFactory;
-
 
     public PlaceBuildingInteractor(PlaceBuildingDataAccessInterface placeBuildingDataAccessObject,
                                    PlaceBuildingOutputBoundary placeBuildingOutputPresenter,
@@ -28,36 +26,40 @@ public class PlaceBuildingInteractor implements PlaceBuildingInputBoundary{
 
     @Override
     public void execute(PlaceBuildingInputData placeBuildingInputData) throws
-            InvocationTargetException, InstantiationException,
-            IllegalAccessException, NoSuchMethodException {
-        int x = placeBuildingInputData.getX();;
+            InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+        int x = placeBuildingInputData.getX();
         int y = placeBuildingInputData.getY();
         boolean left = placeBuildingInputData.isLeft();
         String buildingType = placeBuildingInputData.getBuildingType();
         IBoard board = placeBuildingDataAccessObject.loadBoard();
+        IPlayer player = placeBuildingDataAccessObject.loadPlayer(left);
 
-        if (!board.isOccupied(x, y)) {
-            try {
-                // Create the combatUnit and put it onto the board and into the user's combatUnit list
-                IBuilding building = (IBuilding) unitFactory.createUnit(buildingType, x, y, left);
-                board.placePiece(x, y, building);
-                IPlayer player = placeBuildingDataAccessObject.loadPlayer(left);
-                player.addBuilding(building, board.getWidth());
+        IBuilding building = (IBuilding) unitFactory.createUnit(buildingType, x, y, left);
 
-                PlaceBuildingOutputData placeBuildingOutputData =
-                        new PlaceBuildingOutputData(buildingType + " is successfully placed.");
-                placeBuildingOutputPresenter.prepareSuccessView(placeBuildingOutputData);
-            } catch (TileOccupiedException | InvalidPlacementException e) {
-                PlaceBuildingOutputData placeBuildingOutputData =
-                        new PlaceBuildingOutputData(e.getMessage());
-                placeBuildingOutputPresenter.prepareFailView(placeBuildingOutputData);
-            }
+        String errorMessage = null;
+
+        if (board.isOccupied(x, y)) {
+            errorMessage = "Position at (" + x + ", " + y + ") is already occupied.";
+        } else if (!player.canPlaceUnitAt(x, building.getHeight(), board.getWidth())) {
+            errorMessage = "Invalid placement.";
+        } else if (player.getMoney() < building.getPrice() * player.getPriceCoefficient()) {
+            errorMessage = "You need " +
+                    (building.getPrice() * player.getPriceCoefficient() - player.getMoney()) +
+                    " more money to purchase " + buildingType;
         }
-        else {
-            String message = "Position at (" + x + ", " + y + ") is already occupied.";
-            placeBuildingOutputPresenter.prepareFailView(new PlaceBuildingOutputData(message));
+
+        if (errorMessage != null) {
+            PlaceBuildingOutputData placeBuildingOutputData = new PlaceBuildingOutputData(errorMessage);
+            placeBuildingOutputPresenter.prepareFailView(placeBuildingOutputData);
+            return;
         }
+
+        board.placePiece(x, y, building);
+        player.addBuilding(building);
+        player.setMoney(player.getMoney() - (int) (building.getPrice() * player.getPriceCoefficient()));
+        PlaceBuildingOutputData placeBuildingOutputData =
+                new PlaceBuildingOutputData(buildingType + " is successfully placed.");
+        placeBuildingOutputPresenter.prepareSuccessView(placeBuildingOutputData);
+
     }
 }
-
-
