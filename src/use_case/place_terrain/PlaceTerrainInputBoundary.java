@@ -5,5 +5,7 @@ import exception.TileOccupiedException;
 import java.lang.reflect.InvocationTargetException;
 
 public interface PlaceTerrainInputBoundary {
-    void execute(PlaceTerrainInputData placeTerrainInputData) throws InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException, TileOccupiedException;
+    void execute(PlaceTerrainInputData placeTerrainInputData)
+            throws InvocationTargetException, InstantiationException,
+            IllegalAccessException, NoSuchMethodException, TileOccupiedException;
 }

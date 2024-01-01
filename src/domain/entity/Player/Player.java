@@ -4,12 +4,13 @@ import domain.entity.CanAttack;
 import domain.entity.item.Item;
 import domain.entity.unit.building.IBuilding;
 import domain.entity.unit.combat_unit.ICombatUnit;
+import exception.InvalidPlacementException;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Player implements IPlayer{
+public class Player implements IPlayer {
 
     private final String name;
 
@@ -63,9 +64,19 @@ public class Player implements IPlayer{
     }
 
     @Override
-    public void addCombatUnit(ICombatUnit combatUnit) {
+    public void addCombatUnit(ICombatUnit combatUnit, int boardWidth) throws InvalidPlacementException {
         if (combatUnit != null) {
-            combatUnitList.add(combatUnit);
+            int unitHeight = combatUnit.getHeight();
+            int x = combatUnit.getX();
+            if (canPlaceUnitAt(x, unitHeight, boardWidth)) {
+                combatUnitList.add(combatUnit);
+            } else {
+                int[] range = unitHeight == 1 ? getPlacementRangeForHeight1(boardWidth) :
+                        getPlacementRangeForHeight2(boardWidth);
+                throw new InvalidPlacementException("Cannot place unit at " + x +
+                        ". Valid range for units of height " + unitHeight +
+                        " is between " + range[0] + " and " + range[1] + ".");
+            }
         }
     }
 
@@ -75,9 +86,19 @@ public class Player implements IPlayer{
     }
 
     @Override
-    public void addBuilding(IBuilding building) {
+    public void addBuilding(IBuilding building, int boardWidth) throws InvalidPlacementException {
         if (building != null) {
-            buildingList.add(building);
+            int buildingHeight = building.getHeight();
+            int x = building.getX();
+            if (canPlaceUnitAt(x, buildingHeight, boardWidth)) {
+                buildingList.add(building);
+            } else {
+                int[] range = buildingHeight == 1 ? getPlacementRangeForHeight1(boardWidth) :
+                        getPlacementRangeForHeight2(boardWidth);
+                throw new InvalidPlacementException("Cannot place building at " + x +
+                        ". Valid range for buildings of height " + buildingHeight +
+                        " is between " + range[0] + " and " + range[1] + ".");
+            }
         }
     }
 
@@ -168,8 +189,7 @@ public class Player implements IPlayer{
             for (ICombatUnit combatUnit : combatUnitList) {
                 frontLinePositionX = Math.max(combatUnit.getX(), frontLinePositionX);
             }
-        }
-        else {
+        } else {
             for (ICombatUnit combatUnit : combatUnitList) {
                 frontLinePositionX = Math.min(combatUnit.getX(), frontLinePositionX);
             }
@@ -177,6 +197,71 @@ public class Player implements IPlayer{
         return left ? Math.min(Math.max(frontLinePositionX, oneFifthLength), fourFifthsLength)
                 : Math.max(Math.min(frontLinePositionX, fourFifthsLength), oneFifthLength);
     }
+
+    /**
+     * Calculates the valid placement range for units with height 1.
+     *
+     * @param boardWidth The width of the game board.
+     * @return An int array containing the start and end positions where units can be placed.
+     */
+    @Override
+    public int[] getPlacementRangeForHeight1(int boardWidth) {
+        int oneFifthLength = boardWidth / 5;
+        int fourFifthsLength = boardWidth - oneFifthLength;
+        int frontLinePositionX = getFrontLinePositionX(boardWidth);
+
+        int start = left ? oneFifthLength : frontLinePositionX - 5;
+        int end = left ? frontLinePositionX + 5 : fourFifthsLength;
+
+        // Ensuring the start and end are within the board bounds
+        start = Math.max(start, 0);
+        end = Math.min(end, boardWidth - 1);
+
+        return new int[]{start, end};
+    }
+
+    /**
+     * Calculates the valid placement range for units with height 2.
+     *
+     * @param boardWidth The width of the game board.
+     * @return An int array containing the start and end positions where units can be placed.
+     */
+    @Override
+    public int[] getPlacementRangeForHeight2(int boardWidth) {
+        int oneFifthLength = boardWidth / 5;
+        int start, end;
+
+        if (left) {
+            start = 0;
+            end = oneFifthLength;
+        } else {
+            start = boardWidth - oneFifthLength;
+            end = boardWidth - 1;
+        }
+
+        return new int[]{start, end};
+    }
+
+    /**
+     * Determines if a unit can be placed at a specific position.
+     *
+     * @param x          The x-coordinate on the game board.
+     * @param height     The height of the unit to be placed.
+     * @param boardWidth The width of the game board.
+     * @return true if the unit can be placed at the given position; false otherwise.
+     */
+    @Override
+    public boolean canPlaceUnitAt(int x, int height, int boardWidth) {
+        if (height == 1) {
+            int[] range = getPlacementRangeForHeight1(boardWidth);
+            return x >= range[0] && x <= range[1];
+        } else if (height == 2) {
+            int[] range = getPlacementRangeForHeight2(boardWidth);
+            return x >= range[0] && x <= range[1];
+        }
+        return false;
+    }
+
 
     @Override
     public int getTotalOperationNum() {

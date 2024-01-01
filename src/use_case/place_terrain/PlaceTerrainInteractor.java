@@ -1,5 +1,6 @@
 package use_case.place_terrain;
 
+import domain.entity.Player.IPlayer;
 import domain.entity.board.IBoard;
 import domain.entity.terrain.ITerrain;
 import domain.entity.terrain.ITerrainFactory;

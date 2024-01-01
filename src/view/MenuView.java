@@ -73,9 +73,8 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         newGameButton.setForeground(Color.WHITE);
 
         loadGameButton.setFont(buttonFont);
-        loadGameButton.setBounds(currentX, currentY, componentWidth, componentHeight);
+        loadGameButton.setBounds(currentX, currentY, componentWidth,  componentHeight);
         mainPanel.add(loadGameButton);
-        loadGameButton.addActionListener(this);
         loadGameButton.addActionListener(this);
         loadGameButton.setBackground(Color.BLACK);
         loadGameButton.setForeground(Color.WHITE);

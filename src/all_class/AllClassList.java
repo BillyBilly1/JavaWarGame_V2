@@ -17,6 +17,9 @@ import java.util.List;
 
 public class AllClassList {
 
+    // All Unit classes and Terrain classes are stored here
+    //
+
     private static final ArrayList<Class <? extends IUnit>> UnitClassList = new ArrayList<>();
 
     private static final ArrayList<Class <? extends ITerrain>> TerrainClassList = new ArrayList<>();

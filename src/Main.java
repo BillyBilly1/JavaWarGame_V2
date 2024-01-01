@@ -1,3 +1,14 @@
+// Copyright (c) 2023 Yida Li (GitHub: BillyBilly1)
+// All rights reserved.
+// This code may not be reproduced, modified, distributed,
+// or used in any manner except in accordance with the terms
+// specified in a written agreement.
+// The code in all the files in this repository,
+// as well as the icons located in the src\icon directory,
+// are the original works of the author.
+// No part of the code or icons may be reproduced, modified, distributed,
+// or used in any manner except with the express written permission of the original author.
+
 import database.board.BoardRepositoryInterface;
 import database.board.InMemoryBoardRepository;
 import database.game.GameRepositoryInterface;
@@ -23,12 +34,12 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
+        
         // Create InMemory Repositories
         UnitRepositoryInterface unitRepository = new InMemoryUnitRepository();
         PlayerRepositoryInterface playerRepository = new InMemoryPlayerRepository();
         BoardRepositoryInterface boardRepository = new InMemoryBoardRepository();
         GameRepositoryInterface gameRepository = new InMemoryGameRepository();
-
 
         // Create ViewModels
         MenuViewModel menuViewModel = new MenuViewModel();
@@ -39,7 +50,6 @@ public class Main {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
 
         // Create Views
-
         MenuView menuView = new MenuView(viewManagerModel, menuViewModel, new LoadGameController());
         SetUpPlayersView setUpPlayersView = SetUpPlayersViewFactory.create(viewManagerModel,
                 setUpPlayersViewModel, playerRepository);

@@ -1,6 +1,5 @@
 package use_case.initialize_game;
 
-import database.game.InMemoryGameRepository;
 import domain.entity.Player.IPlayer;
 import domain.entity.board.IBoard;
 import domain.entity.board.IBoardFactory;

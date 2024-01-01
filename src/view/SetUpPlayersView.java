@@ -74,7 +74,7 @@ public class SetUpPlayersView extends JPanel implements ActionListener, Property
         int currentY = height / 30;
         int dY = height / 20;
         int componentWidth = width * 3 / 5;
-        int componentHeight = height / 18;
+        int componentHeight = height / 20;
 
         titleLabel.setFont(titleFont);
         titleLabel.setBounds(currentX, currentY, componentWidth, componentHeight);
@@ -196,9 +196,11 @@ public class SetUpPlayersView extends JPanel implements ActionListener, Property
         SetUpPlayersState currentState = new SetUpPlayersState(setUpPlayersViewModel.getSetUpPlayersState());
         if (e.getSource() == finishButton) {
             if (player1NameTextField.getText().trim().isEmpty() ||
-                    player2NameTextField.getText().trim().isEmpty()) {
+                    player2NameTextField.getText().trim().isEmpty() ||
+                    initialMoneyTextField.getText().trim().isEmpty() ||
+                    initialFoodAmountTextField.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(this,
-                        "Either Player1's name or Player2's name is empty",
+                        "At least one text field is empty.",
                         "Input Error", JOptionPane.ERROR_MESSAGE);
             } else if (!currentState.isValidMoneyInput() || !currentState.isValidFoodAmountInput()) {
                 JOptionPane.showMessageDialog(this,
@@ -222,7 +224,6 @@ public class SetUpPlayersView extends JPanel implements ActionListener, Property
         }
 
     }
-
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {

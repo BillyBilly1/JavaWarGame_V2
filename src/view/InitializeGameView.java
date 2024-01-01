@@ -99,7 +99,7 @@ public class InitializeGameView extends JPanel implements ActionListener, Proper
         heightTextField.setBounds(currentX, currentY, componentWidth, componentHeight);
 
         // Set the height to the default value
-        widthTextField.setText(initializeGameViewModel.getInitializeGameState().getHeight());
+        heightTextField.setText(initializeGameViewModel.getInitializeGameState().getHeight());
         mainPanel.add(heightTextField);
         currentY += dY;
 
@@ -162,11 +162,11 @@ public class InitializeGameView extends JPanel implements ActionListener, Proper
         initializeGameViewModel.addPropertyChangeListener(this);
     }
 
-
-
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getSource() == finishButton) {
+            System.out.println("Reach here");
+        }
     }
 
     @Override

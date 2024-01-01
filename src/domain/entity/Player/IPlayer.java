@@ -3,6 +3,7 @@ package domain.entity.Player;
 import domain.entity.item.Item;
 import domain.entity.unit.building.IBuilding;
 import domain.entity.unit.combat_unit.ICombatUnit;
+import exception.InvalidPlacementException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +20,11 @@ public interface IPlayer {
 
     List<Item> getItemList();
 
-    void addCombatUnit(ICombatUnit combatUnit);
+    void addCombatUnit(ICombatUnit combatUnit, int boardWidth) throws InvalidPlacementException;
 
     void removeCombatUnit(ICombatUnit combatUnit);
 
-    void addBuilding(IBuilding building);
+    void addBuilding(IBuilding building, int boardWidth) throws InvalidPlacementException;
 
     void removeBuilding(IBuilding building);
 
@@ -50,6 +51,12 @@ public interface IPlayer {
     void setTotalEnemyStrengthDefeated(int totalEnemyStrengthDefeated);
 
     int getFrontLinePositionX(int boardWidth);
+
+    int[] getPlacementRangeForHeight1(int boardWidth);
+
+    int[] getPlacementRangeForHeight2(int boardWidth);
+
+    boolean canPlaceUnitAt(int x, int height, int boardWidth);
 
     int getTotalOperationNum();
 
