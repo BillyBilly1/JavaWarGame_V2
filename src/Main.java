@@ -6,11 +6,14 @@ import database.player.InMemoryPlayerRepository;
 import database.player.PlayerRepositoryInterface;
 import database.unit.InMemoryUnitRepository;
 import database.unit.UnitRepositoryInterface;
+import interface_adapter.MenuViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.initialize_game.InitializeGameController;
 import interface_adapter.initialize_game.InitializeGameViewModel;
+import interface_adapter.load_game.LoadGameController;
 import interface_adapter.set_up_players.SetUpPlayersViewModel;
 import view.InitializeGameView;
+import view.MenuView;
 import view.SetUpPlayersView;
 import view.ViewManager;
 import view_factory.SetUpPlayersViewFactory;
@@ -28,6 +31,7 @@ public class Main {
 
 
         // Create ViewModels
+        MenuViewModel menuViewModel = new MenuViewModel();
         SetUpPlayersViewModel setUpPlayersViewModel = new SetUpPlayersViewModel();
         InitializeGameViewModel initializeGameViewModel = new InitializeGameViewModel();
 
@@ -35,6 +39,8 @@ public class Main {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
 
         // Create Views
+
+        MenuView menuView = new MenuView(viewManagerModel, menuViewModel, new LoadGameController());
         SetUpPlayersView setUpPlayersView = SetUpPlayersViewFactory.create(viewManagerModel,
                 setUpPlayersViewModel, playerRepository);
 
@@ -50,13 +56,14 @@ public class Main {
 
         // Register all the views
         JPanel views = new JPanel(cardLayout);
+        views.add(menuView, menuViewModel.getViewName());
         views.add(setUpPlayersView, setUpPlayersViewModel.getViewName());
         views.add(initializeGameView, initializeGameViewModel.getViewName());
 
 
         application.add(views);
         new ViewManager(views, cardLayout, viewManagerModel);
-        viewManagerModel.setActiveView(setUpPlayersViewModel.getViewName());
+        viewManagerModel.setActiveView(menuViewModel.getViewName());
 
         application.pack();
 

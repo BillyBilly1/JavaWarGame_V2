@@ -1,10 +1,10 @@
-package use_case.place_terrain;
+package use_case.place_combatunit;
 
-public class PlaceTerrainOutputData {
+public class PlaceCombatUnitOutputData {
 
     private final String message;
 
-    public PlaceTerrainOutputData(String message) {
+    public PlaceCombatUnitOutputData(String message) {
         this.message = message;
     }
 

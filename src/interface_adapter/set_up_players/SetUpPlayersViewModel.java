@@ -7,6 +7,8 @@ import java.beans.PropertyChangeSupport;
 
 public class SetUpPlayersViewModel extends ViewModel {
 
+    public static final String viewName = "set up players";
+
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     private SetUpPlayersState setUpPlayersState = new SetUpPlayersState();
@@ -43,12 +45,12 @@ public class SetUpPlayersViewModel extends ViewModel {
 
     public void validateAndSetMoney(String input) {
         if (input.matches("\\d+")) {
-            if (Integer.parseInt(input) != 0) {
+            if (Integer.parseInt(input) > 0) {
                 setUpPlayersState.setInitialMoney(input);
                 setUpPlayersState.setMoneyErrorMessage("");
                 setUpPlayersState.setValidMoneyInput(true);
             } else {
-                setUpPlayersState.setMoneyErrorMessage("Initial money cannot be 0");
+                setUpPlayersState.setMoneyErrorMessage("Initial money must be positive.");
                 setUpPlayersState.setValidMoneyInput(false);
             }
         }
@@ -63,12 +65,12 @@ public class SetUpPlayersViewModel extends ViewModel {
 
     public void validateAndSetFoodAmount(String input) {
         if (input.matches("\\d+")) {
-            if (Integer.parseInt(input) != 0) {
+            if (Integer.parseInt(input) > 0) {
                 setUpPlayersState.setInitialFoodAmount(input);
                 setUpPlayersState.setFoodAmountErrorMessage("");
                 setUpPlayersState.setValidFoodAmountInput(true);
             } else {
-                setUpPlayersState.setFoodAmountErrorMessage("Initial food amount cannot be 0");
+                setUpPlayersState.setFoodAmountErrorMessage("Initial food amount must be positive.");
                 setUpPlayersState.setValidFoodAmountInput(false);
             }
         } else {

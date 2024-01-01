@@ -4,6 +4,8 @@ import interface_adapter.initialize_game.InitializeGameController;
 import interface_adapter.initialize_game.InitializeGameViewModel;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -78,6 +80,8 @@ public class InitializeGameView extends JPanel implements ActionListener, Proper
 
         widthTextField.setFont(labelFont);
         widthTextField.setBounds(currentX, currentY, componentWidth, componentHeight);
+        // Set the width to the default value
+        widthTextField.setText(initializeGameViewModel.getInitializeGameState().getWidth());
         mainPanel.add(widthTextField);
         currentY += dY;
 
@@ -93,6 +97,9 @@ public class InitializeGameView extends JPanel implements ActionListener, Proper
 
         heightTextField.setFont(labelFont);
         heightTextField.setBounds(currentX, currentY, componentWidth, componentHeight);
+
+        // Set the height to the default value
+        widthTextField.setText(initializeGameViewModel.getInitializeGameState().getHeight());
         mainPanel.add(heightTextField);
         currentY += dY;
 
@@ -110,7 +117,52 @@ public class InitializeGameView extends JPanel implements ActionListener, Proper
         add(finishButton, BorderLayout.SOUTH);
         finishButton.addActionListener(this);
 
+        widthTextField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                checkInput();
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                checkInput();
+            }
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                checkInput();
+            }
+            private void checkInput() {
+                String input = widthTextField.getText();
+                initializeGameViewModel.validateAndSetWidth(input);
+            }
+        }
+        );
+        heightTextField.getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                checkInput();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                checkInput();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                checkInput();
+            }
+
+            private void checkInput() {
+                String input = heightTextField.getText();
+                initializeGameViewModel.validateAndSetHeight(input);
+            }
+
+        });
+        initializeGameViewModel.addPropertyChangeListener(this);
     }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

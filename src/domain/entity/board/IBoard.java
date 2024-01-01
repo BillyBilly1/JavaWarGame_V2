@@ -18,4 +18,6 @@ public interface IBoard {
     int getWidth();
 
     int getHeight();
+
+    boolean isOccupied(int x, int y);
 }

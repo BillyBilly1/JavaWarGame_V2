@@ -141,7 +141,6 @@ public class SetUpPlayersView extends JPanel implements ActionListener, Property
         add(finishButton, BorderLayout.SOUTH);
         finishButton.addActionListener(this);
 
-
         // Add ActionListener to both InputTextField
 
         initialMoneyTextField.getDocument().addDocumentListener(new DocumentListener() {

@@ -1,7 +1,6 @@
 package domain.entity.board;
 
 import domain.entity.Placeable;
-import exception.MoneyNotEnoughException;
 import exception.TileOccupiedException;
 
 public class Board implements IBoard{
@@ -79,5 +78,10 @@ public class Board implements IBoard{
     @Override
     public int getHeight() {
         return height;
+    }
+
+    @Override
+    public boolean isOccupied(int x, int y) {
+        return grid[x][y] != null;
     }
 }
