@@ -275,9 +275,6 @@ public class Player implements IPlayer {
     }
 
     public boolean isLost() {
-        if (combatUnitList.isEmpty()) {
-            return true;
-        }
-        else {return false;}
+        return combatUnitList.isEmpty();
     }
 }

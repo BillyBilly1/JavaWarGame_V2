@@ -4,11 +4,6 @@ import domain.entity.Player.IPlayer;
 import domain.entity.board.IBoard;
 import domain.entity.unit.IUnitFactory;
 import domain.entity.unit.building.IBuilding;
-import exception.InvalidPlacementException;
-import exception.MoneyNotEnoughException;
-import exception.TileOccupiedException;
-import use_case.place_combatunit.PlaceCombatUnitOutputData;
-
 import java.lang.reflect.InvocationTargetException;
 
 public class PlaceBuildingInteractor implements PlaceBuildingInputBoundary {
@@ -55,6 +50,7 @@ public class PlaceBuildingInteractor implements PlaceBuildingInputBoundary {
         }
 
         board.placePiece(x, y, building);
+        placeBuildingDataAccessObject.addUnit(building);
         player.addBuilding(building);
         player.setMoney(player.getMoney() - (int) (building.getPrice() * player.getPriceCoefficient()));
         PlaceBuildingOutputData placeBuildingOutputData =

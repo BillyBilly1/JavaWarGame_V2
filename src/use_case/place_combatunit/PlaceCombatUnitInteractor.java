@@ -4,9 +4,7 @@ import domain.entity.Player.IPlayer;
 import domain.entity.board.IBoard;
 import domain.entity.unit.IUnitFactory;
 import domain.entity.unit.combat_unit.ICombatUnit;
-import exception.InvalidPlacementException;
-import exception.MoneyNotEnoughException;
-import exception.TileOccupiedException;
+
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -55,6 +53,7 @@ public class PlaceCombatUnitInteractor implements PlaceCombatUnitInputBoundary {
         }
 
         board.placePiece(x, y, combatUnit);
+        placeCombatUnitDataAccessObject.addUnit(combatUnit);
         player.addCombatUnit(combatUnit);
         player.setMoney(player.getMoney() - (int) (combatUnit.getPrice() * player.getPriceCoefficient()));
 

@@ -2,6 +2,8 @@ package domain.entity.unit.combat_unit.melee;
 
 import domain.attack_strategy.AttackStrategy;
 import domain.attack_strategy.MeleeAttackStrategy;
+import domain.entity.OperationNumConstant;
+import domain.entity.RangeConstant;
 import domain.entity.unit.combat_unit.CombatUnit;
 
 public class LanceKnight extends CombatUnit {
@@ -12,11 +14,13 @@ public class LanceKnight extends CombatUnit {
 
     private static final float defaultDefense = 0.5f;
 
-    private static final int defaultMaxOperationNum = 4;
+    private static final int defaultMaxOperationNum = 7;
 
-    private static final int defaultAttackRange = 1;
+    private static final int defaultAttackOperationNumCost = OperationNumConstant.mountedCombatOpCost;
 
-    private static final int[][] defaultDamageRange = new int[][]{{0, 0}};
+    private static final int[][] defaultAttackRange = RangeConstant.meleeAttackRange;
+
+    private static final int[][] defaultDamageRange = RangeConstant.normalDamageRange;
 
     private static final int defaultPrice = 442;
 
@@ -30,7 +34,7 @@ public class LanceKnight extends CombatUnit {
 
     public LanceKnight(int x, int y, boolean Left, String id){
         super(x, y, Left, id, defaultMaxHp, defaultAttack, defaultDefense,
-                defaultMaxOperationNum, defaultAttackRange, defaultDamageRange,
+                defaultMaxOperationNum, defaultAttackOperationNumCost, defaultAttackRange, defaultDamageRange,
                 defaultPrice, defaultFoodConsumption, iconPath, flippedIconPath, attackStrategy);
     }
 }

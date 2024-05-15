@@ -1,12 +1,13 @@
 package domain.entity.unit;
 
+import domain.Victim;
 import domain.entity.Placeable;
 import domain.service.id.SingletonIDGenerator;
 import domain.service.id.SingletonIntegerIDGenerator;
 
 import javax.swing.*;
 
-public abstract class Unit implements IUnit, Placeable {
+public abstract class Unit implements IUnit, Placeable, Victim {
 
     protected int x;
 
@@ -94,8 +95,6 @@ public abstract class Unit implements IUnit, Placeable {
     public String getName() {
         return name;
     }
-
-
 
     @Override
     public String getIconPath() {

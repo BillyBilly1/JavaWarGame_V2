@@ -11,7 +11,6 @@ import domain.entity.unit.combat_unit.melee.SpearGuard;
 import domain.entity.unit.combat_unit.ranged.Archer;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 

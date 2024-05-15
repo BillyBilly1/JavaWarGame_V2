@@ -1,9 +1,10 @@
 package domain.entity.unit.combat_unit;
 
 import domain.attack_strategy.AttackStrategy;
+import domain.entity.CanAttack;
 import domain.entity.unit.IUnit;
 
-public interface ICombatUnit extends IUnit {
+public interface ICombatUnit extends IUnit, CanAttack {
 
     float getAttack();
 
@@ -11,13 +12,19 @@ public interface ICombatUnit extends IUnit {
 
     void setAtkBuff(float atkBuff);
 
+    float getStaminaBasedAttackDebuff();
+
     int getMaxOperationNum();
 
     int getOperationNum();
 
+    int getAttackOperationNumCost();
+
     void setOperationNum(int operationNum);
 
-    int getAttackRange();
+    int[][] getAttackRange();
+
+    int[][] getCurrentAttackRange();
 
     int[][] getDamageRange();
 

@@ -14,7 +14,9 @@ public abstract class CombatUnit extends Unit implements ICombatUnit, CanAttack 
 
     protected int operationNum;
 
-    protected final int attackRange;
+    protected int attackOperationNumCost;
+
+    protected final int[][] attackRange;
 
     protected final int[][] damageRange;
 
@@ -27,7 +29,7 @@ public abstract class CombatUnit extends Unit implements ICombatUnit, CanAttack 
     protected final AttackStrategy attackStrategy;
 
     public CombatUnit(int x, int y, boolean left, String id, float maxHp, float attack,
-                      float defense, int maxOperationNum, int attackRange,
+                      float defense, int maxOperationNum, int attackOperationNumCost, int[][] attackRange,
                       int[][] damageRange, int price, int foodConsumption,
                       String iconPath, String flippedIconPath, AttackStrategy attackStrategy) {
         super(x, y, left, id,  maxHp, defense, price, defaultHeight,
@@ -35,6 +37,7 @@ public abstract class CombatUnit extends Unit implements ICombatUnit, CanAttack 
         this.attack = attack;
         this.maxOperationNum = maxOperationNum;
         this.operationNum = maxOperationNum;
+        this.attackOperationNumCost = attackOperationNumCost;
         this.attackRange = attackRange;
         this.damageRange = damageRange;
         this.foodConsumption = foodConsumption;
@@ -57,6 +60,18 @@ public abstract class CombatUnit extends Unit implements ICombatUnit, CanAttack 
     }
 
     @Override
+    public float getStaminaBasedAttackDebuff() {
+
+        float operationEfficiency = 1 - (float) operationNum / attackOperationNumCost;
+        float attackDebuff = - attack * 0.4f * operationEfficiency;
+        attackDebuff = Math.round(attackDebuff * 10) / 10.0f;
+        if (hp < 1) {
+            attackDebuff = - attack + 1;
+        }
+        return attackDebuff;
+    }
+
+    @Override
     public int getMaxOperationNum() {
         return maxOperationNum;
     }
@@ -65,6 +80,9 @@ public abstract class CombatUnit extends Unit implements ICombatUnit, CanAttack 
     public int getOperationNum() {
         return operationNum;
     }
+
+    @Override
+    public int getAttackOperationNumCost() {return attackOperationNumCost; }
 
     @Override
     public void setOperationNum(int operationNum) {
@@ -78,8 +96,19 @@ public abstract class CombatUnit extends Unit implements ICombatUnit, CanAttack 
     }
 
     @Override
-    public int getAttackRange() {
+    public int[][] getAttackRange() {
         return attackRange;
+    }
+
+    @Override
+    public int[][] getCurrentAttackRange() {
+        int resultLength = attackRange.length;
+        int[][] resultArray = new int[resultLength][2];
+        for (int i = 0; i < resultLength; i++) {
+            resultArray[i][0] = attackRange[i][0] + x;
+            resultArray[i][1] = attackRange[i][1] + y;
+        }
+        return resultArray;
     }
 
     @Override

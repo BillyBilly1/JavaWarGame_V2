@@ -2,8 +2,6 @@ package domain.entity.unit;
 
 import all_class.AllClassList;
 import domain.service.id.SingletonIDGenerator;
-import domain.service.id.SingletonIntegerIDGenerator;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -11,7 +9,8 @@ import java.util.Map;
 
 public class UnitFactory implements IUnitFactory {
     private static final Map<String, Class<? extends IUnit>> registeredUnits = new HashMap<>();
-    
+
+
     private final SingletonIDGenerator singletonIDGenerator;
 
     static {

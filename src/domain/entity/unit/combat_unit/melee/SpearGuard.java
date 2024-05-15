@@ -1,6 +1,8 @@
 package domain.entity.unit.combat_unit.melee;
 import domain.attack_strategy.AttackStrategy;
 import domain.attack_strategy.MeleeAttackStrategy;
+import domain.entity.OperationNumConstant;
+import domain.entity.RangeConstant;
 import domain.entity.unit.combat_unit.CombatUnit;
 
 public class SpearGuard extends CombatUnit {
@@ -11,11 +13,13 @@ public class SpearGuard extends CombatUnit {
 
     private static final float defaultDefense = 0.0f;
 
-    private static final int defaultMaxOperationNum = 2;
+    private static final int defaultMaxOperationNum = 4;
 
-    private static final int defaultAttackRange = 1;
+    private static final int defaultAttackOperationNumCost = OperationNumConstant.meleeAttackOpCost;
 
-    private static final int[][] defaultDamageRange = new int[][]{{0, 0}};
+    private static final int[][] defaultAttackRange = RangeConstant.meleeAttackRange;
+
+    private static final int[][] defaultDamageRange = RangeConstant.normalDamageRange;
 
     private static final int defaultPrice = 104;
 
@@ -29,7 +33,7 @@ public class SpearGuard extends CombatUnit {
 
     public SpearGuard(int x, int y, boolean Left, String id){
         super(x, y, Left, id, defaultMaxHp, defaultAttack, defaultDefense,
-                defaultMaxOperationNum, defaultAttackRange, defaultDamageRange,
+                defaultMaxOperationNum, defaultAttackOperationNumCost, defaultAttackRange, defaultDamageRange,
                 defaultPrice, defaultFoodConsumption, iconPath, flippedIconPath, attackStrategy);
     }
 }

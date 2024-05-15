@@ -2,6 +2,7 @@ package domain.entity.unit.combat_unit.ranged;
 
 import domain.attack_strategy.AttackStrategy;
 import domain.attack_strategy.NormalRangedAttackStrategy;
+import domain.entity.RangeConstant;
 import domain.entity.unit.combat_unit.CombatUnit;
 
 public class Archer extends CombatUnit {
@@ -14,9 +15,9 @@ public class Archer extends CombatUnit {
 
     private static final int defaultMaxOperationNum = 2;
 
-    private static final int defaultAttackRange = 3;
+    private static final int[][] defaultAttackRange = RangeConstant.threeCellRangedAttackRange;
 
-    private static final int[][] defaultDamageRange = new int[][]{{0, 0}};
+    private static final int[][] defaultDamageRange = RangeConstant.normalDamageRange;
 
     private static final int defaultPrice = 164;
 
